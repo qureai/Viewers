@@ -4,7 +4,7 @@ import classnames from 'classnames';
 
 import { IconButton, Icon } from '../';
 
-import './ExpandableToolbarButton.css';
+// import './ExpandableToolbarButton.css';
 
 const ExpandableToolbarButton = ({
   type,

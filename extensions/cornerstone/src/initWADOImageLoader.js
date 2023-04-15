@@ -17,6 +17,9 @@ function initWebWorkers(appConfig) {
       Math.max(navigator.hardwareConcurrency - 1, 1),
       appConfig.maxNumberOfWebWorkers
     ),
+    webWorkerTaskPaths: [
+      'https://unpkg.com/cornerstone-wado-image-loader@4.1.0/dist/610.bundle.min.js',
+    ],
     startWebWorkersOnDemand: true,
     taskConfiguration: {
       decodeTask: {
@@ -55,28 +58,25 @@ export default function initWADOImageLoader(
       convertFloatPixelDataToInt: false,
     },
     beforeSend: function(xhr) {
-      const headers = userAuthenticationService.getAuthorizationHeader();
-
-      // Request:
-      // JPEG-LS Lossless (1.2.840.10008.1.2.4.80) if available, otherwise accept
-      // whatever transfer-syntax the origin server provides.
-      // For now we use image/jls and image/x-jls because some servers still use the old type
-      // http://dicom.nema.org/medical/dicom/current/output/html/part18.html
-      const xhrRequestHeaders = {
-        Accept: appConfig.omitQuotationForMultipartRequest
-          ? 'multipart/related; type=application/octet-stream'
-          : 'multipart/related; type="application/octet-stream"',
-        // 'multipart/related; type="image/x-jls", multipart/related; type="image/jls"; transfer-syntax="1.2.840.10008.1.2.4.80", multipart/related; type="image/x-jls", multipart/related; type="application/octet-stream"; transfer-syntax=*',
-      };
-
-      if (headers && headers.Authorization) {
-        xhrRequestHeaders.Authorization = headers.Authorization;
-      }
-
-      return xhrRequestHeaders;
+      // const headers = UserAuthenticationService.getAuthorizationHeader();
+      // // Request:
+      // // JPEG-LS Lossless (1.2.840.10008.1.2.4.80) if available, otherwise accept
+      // // whatever transfer-syntax the origin server provides.
+      // // For now we use image/jls and image/x-jls because some servers still use the old type
+      // // http://dicom.nema.org/medical/dicom/current/output/html/part18.html
+      // const xhrRequestHeaders = {
+      //   Accept: appConfig.omitQuotationForMultipartRequest
+      //     ? 'multipart/related; type=application/octet-stream'
+      //     : 'multipart/related; type="application/octet-stream"',
+      //   // 'multipart/related; type="image/x-jls", multipart/related; type="image/jls"; transfer-syntax="1.2.840.10008.1.2.4.80", multipart/related; type="image/x-jls", multipart/related; type="application/octet-stream"; transfer-syntax=*',
+      // };
+      // if (headers && headers.Authorization) {
+      //   xhrRequestHeaders.Authorization = headers.Authorization;
+      // }
+      // return xhrRequestHeaders;
     },
     errorInterceptor: error => {
-      errorHandler.getHTTPErrorHandler(error);
+      // errorHandler.getHTTPErrorHandler(error);
     },
   });
 

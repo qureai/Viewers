@@ -38,10 +38,22 @@ module.exports = (env, argv) => {
       libraryTarget: 'umd',
       filename: pkg.main,
     },
-    externals: {
-      react: 'React',
-      'react-dom': 'ReactDOM',
-    },
+    externals: [
+      {
+        react: {
+          root: 'React',
+          commonjs2: 'react',
+          commonjs: 'react',
+          amd: 'react',
+        },
+        react: {
+          root: 'ReactDOM',
+          commonjs2: 'react-dom',
+          commonjs: 'react-dom',
+          amd: 'react-dom',
+        },
+      },
+    ],
     plugins: [
       new MiniCssExtractPlugin({
         filename: `./dist/[name].css`,

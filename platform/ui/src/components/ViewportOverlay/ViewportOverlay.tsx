@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import './ViewportOverlay.css';
+// import './ViewportOverlay.css';
 
 const classes = {
   topLeft: 'top-viewport left-viewport',

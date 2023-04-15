@@ -18,7 +18,7 @@ import classNames from 'classnames';
  */
 import guid from './../../../core/src/utils/guid';
 
-import './DialogProvider.css';
+// import './DialogProvider.css';
 
 const DialogContext = createContext(null);
 

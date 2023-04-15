@@ -220,7 +220,24 @@ export default async function init({
 
   const newStackCallback = evt => {
     const { element } = evt.detail;
-    utilities.stackPrefetch.enable(element);
+
+    const enabledElements = cornerstone.getEnabledElements();
+
+    try {
+      const enabledElement = cornerstone.getEnabledElement(element);
+      console.log({ enabledElement });
+
+      setTimeout(() => {
+        if (element) {
+          utilities.stackPrefetch.enable(element);
+        }
+      });
+    } catch (err) {
+      console.log('NOT ENABLED', err);
+    }
+    console.log({ enabledElements });
+
+    console.log('Stack callback', { evt });
   };
 
   const resetCrosshairs = evt => {

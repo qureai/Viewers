@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import classNames from 'classnames';
 import Typography from '../Typography';
-import './InputRange.css';
+// import './InputRange.css';
 
 /**
  * React Range Input component
@@ -69,8 +69,9 @@ const InputRange: React.FC<{
           inputClassName ? inputClassName : ''
         }`}
         style={{
-          background: `linear-gradient(to right, #5acce6 0%, #5acce6 ${rangeValuePercentage -
-            10}%, #3a3f99 ${rangeValuePercentage + 10}%, #3a3f99 100%)`,
+          background: `linear-gradient(to right, #5acce6 0%, #5acce6 ${
+            rangeValuePercentage - 10
+          }%, #3a3f99 ${rangeValuePercentage + 10}%, #3a3f99 100%)`,
         }}
         onChange={handleChange}
         id="myRange"

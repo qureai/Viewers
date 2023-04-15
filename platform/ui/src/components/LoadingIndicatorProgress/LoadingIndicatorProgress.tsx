@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { Icon } from '@ohif/ui';
 
-import './LoadingIndicatorProgress.css';
+// import './LoadingIndicatorProgress.css';
 
 /**
  *  A React component that renders a loading indicator.

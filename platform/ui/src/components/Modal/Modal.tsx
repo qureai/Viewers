@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 
-import './Modal.css';
+// import './Modal.css';
 
 import { Typography, Icon } from '../';
 import { useModal } from '../../contextProviders';

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
 import { Icon, Tooltip, InputRange } from '../';
 
-import './CinePlayer.css';
+// import './CinePlayer.css';
 import classNames from 'classnames';
 
 export type CinePlayerProps = {

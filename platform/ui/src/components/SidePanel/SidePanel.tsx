@@ -15,9 +15,9 @@ import { PanelService, ServicesManager, Types } from '@ohif/core';
 
 import { Button, Icon, IconButton, Tooltip } from '../';
 
-import 'swiper/css';
-import 'swiper/css/navigation';
-import './style.css';
+// import 'swiper/css';
+// import 'swiper/css/navigation';
+// import './style.css';
 
 const borderSize = 4;
 const expandedWidth = 248;

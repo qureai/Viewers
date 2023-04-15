@@ -34,7 +34,7 @@ function defaultRouteInit(
     unsubscribe: instanceAddedUnsubscribe,
   } = DicomMetadataStore.subscribe(
     DicomMetadataStore.EVENTS.INSTANCES_ADDED,
-    function({ StudyInstanceUID, SeriesInstanceUID, madeInClient = false }) {
+    function ({ StudyInstanceUID, SeriesInstanceUID, madeInClient = false }) {
       const seriesMetadata = DicomMetadataStore.getSeries(
         StudyInstanceUID,
         SeriesInstanceUID

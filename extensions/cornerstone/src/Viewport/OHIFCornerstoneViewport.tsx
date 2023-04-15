@@ -13,7 +13,7 @@ import {
 
 import { setEnabledElement } from '../state';
 
-import './OHIFCornerstoneViewport.css';
+// import './OHIFCornerstoneViewport.css';
 import CornerstoneOverlays from './Overlays/CornerstoneOverlays';
 import {
   IStackViewport,

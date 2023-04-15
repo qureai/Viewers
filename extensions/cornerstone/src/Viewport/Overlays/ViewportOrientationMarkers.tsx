@@ -11,7 +11,7 @@ import { utilities } from '@cornerstonejs/tools';
 import PropTypes from 'prop-types';
 import { vec3 } from 'gl-matrix';
 
-import './ViewportOrientationMarkers.css';
+// import './ViewportOrientationMarkers.css';
 
 const {
   getOrientationStringLPS,

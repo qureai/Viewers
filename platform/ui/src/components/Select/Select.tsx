@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import ReactSelect, { components } from 'react-select';
 import { Icon } from '@ohif/ui';
 
-import './Select.css';
+// import './Select.css';
 
 const MultiValue = props => {
   const values = props.selectProps.value;

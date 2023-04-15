@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import IconButton from '../IconButton';
 import Icon from '../Icon';
-import './InputNumber.css';
+// import './InputNumber.css';
 
 /**
  * React Number Input component'
