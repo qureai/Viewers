@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
 import { IconButton, Icon } from '../';
 
-import './LegacyCinePlayerCustomInputRange.css';
+// import './LegacyCinePlayerCustomInputRange.css';
 
 const LegacyCinePlayer = ({
   isPlaying,

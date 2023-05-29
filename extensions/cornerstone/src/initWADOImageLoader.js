@@ -18,7 +18,7 @@ function initWebWorkers(appConfig) {
       appConfig.maxNumberOfWebWorkers
     ),
     webWorkerTaskPaths: [
-      'https://unpkg.com/cornerstone-wado-image-loader@4.1.0/dist/610.bundle.min.js',
+      // 'https://unpkg.com/cornerstone-wado-image-loader@4.1.0/dist/610.bundle.min.js',
     ],
     startWebWorkersOnDemand: true,
     taskConfiguration: {
@@ -57,7 +57,7 @@ export default function initWADOImageLoader(
       // we should set this flag to false.
       convertFloatPixelDataToInt: false,
     },
-    beforeSend: function(xhr) {
+    beforeSend: function (xhr) {
       // const headers = UserAuthenticationService.getAuthorizationHeader();
       // // Request:
       // // JPEG-LS Lossless (1.2.840.10008.1.2.4.80) if available, otherwise accept

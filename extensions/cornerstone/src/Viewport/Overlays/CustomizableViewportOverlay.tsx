@@ -13,7 +13,7 @@ import { InstanceMetadata } from 'platform/core/src/types';
 import { ServicesManager } from '@ohif/core';
 import { ImageSliceData } from '@cornerstonejs/core/dist/esm/types';
 
-import './CustomizableViewportOverlay.css';
+// import './CustomizableViewportOverlay.css';
 
 const EPSILON = 1e-4;
 

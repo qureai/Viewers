@@ -71,7 +71,12 @@ const cornerstoneExtension: Types.Extensions.Extension = {
   preRegistration: function (
     props: Types.Extensions.ExtensionParams
   ): Promise<void> {
-    const { servicesManager } = props;
+    const {
+      servicesManager,
+      commandsManager,
+      configuration,
+      appConfig,
+    } = props;
     // Todo: we should be consistent with how services get registered. Use REGISTRATION static method for all
     servicesManager.registerService(
       CornerstoneViewportService(servicesManager)
@@ -84,6 +89,8 @@ const cornerstoneExtension: Types.Extensions.Extension = {
     servicesManager.registerService(
       CornerstoneCacheService.REGISTRATION(servicesManager)
     );
+
+    // await init({ servicesManager, commandsManager, configuration, appConfig });
 
     return init.call(this, props);
   },

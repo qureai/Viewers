@@ -118,8 +118,8 @@ export function UserAuthenticationProvider({ children, service }) {
     getState,
     setUser,
     getUser,
-    getAuthorizationHeader: service.getAuthorizationHeader,
-    handleUnauthenticated: service.handleUnauthenticated,
+    getAuthorizationHeader: service?.getAuthorizationHeader,
+    handleUnauthenticated: service?.handleUnauthenticated,
     reset,
     set,
   };

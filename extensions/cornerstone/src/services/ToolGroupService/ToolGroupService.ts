@@ -138,7 +138,7 @@ export default class ToolGroupService {
 
   public createToolGroup(toolGroupId: string): Types.IToolGroup {
     if (this.getToolGroup(toolGroupId)) {
-      throw new Error(`ToolGroup ${toolGroupId} already exists`);
+      // throw new Error(`ToolGroup ${toolGroupId} already exists`);
     }
 
     // if the toolGroup doesn't exist, create it

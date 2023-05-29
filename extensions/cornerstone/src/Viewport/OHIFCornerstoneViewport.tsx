@@ -372,6 +372,7 @@ const OHIFCornerstoneViewport = React.memo(props => {
       }
     );
     return () => {
+      console.log('Inside unmount');
       unsubscribe();
     };
   }, [viewportIndex]);
