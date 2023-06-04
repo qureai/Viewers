@@ -1,11 +1,11 @@
 {
   "name": "@ohif/extension-cornerstone",
-  "version": "3.0.0",
+  "version": "4.0.0-alpha.2",
   "description": "OHIF extension for Cornerstone",
   "author": "OHIF",
   "license": "MIT",
   "repository": "OHIF/Viewers",
-  "main": "dist/index.umd.js",
+  "main": "dist/index.js",
   "module": "src/index.tsx",
   "engines": {
     "node": ">=10",
