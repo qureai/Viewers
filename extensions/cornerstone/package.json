@@ -1,6 +1,6 @@
 {
   "name": "@ohif/extension-cornerstone",
-  "version": "4.0.0-alpha.5",
+  "version": "4.0.0-alpha.6",
   "description": "OHIF extension for Cornerstone",
   "author": "OHIF",
   "license": "MIT",
@@ -24,6 +24,7 @@
     "dev:cornerstone": "yarn run dev",
     "build": "cross-env NODE_ENV=production webpack --config .webpack/webpack.prod.js",
     "build:package": "yarn run build",
+    "build:prod": "scripts/build.sh --external:react --external:react-dom --external:@cornerstonejs/core --external:@cornerstonejs/streaming-image-volume-loader --external:cornerstone-math --external:hammerjs --external:@ohif/core --external:@ohif/ui --external:cornerstone-wado-image-loader --external:@cornerstonejs/adapters --external:@cornerstonejs/tools --external:dicom-parser --external:@kitware/vtk.js",
     "start": "yarn run dev"
   },
   "peerDependencies": {
