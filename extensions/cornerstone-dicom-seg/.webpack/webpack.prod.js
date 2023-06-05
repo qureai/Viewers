@@ -15,7 +15,7 @@ const config = {
     path: outputFolder,
     filename: outputFile,
     library: pkg.name,
-    libraryTarget: 'umd',
+    libraryTarget: 'commonjs2',
     chunkFilename: '[name].chunk.js',
     umdNamedDefine: true,
     globalObject: "typeof self !== 'undefined' ? self : this",
@@ -55,7 +55,11 @@ const config = {
     ],
   },
   resolve: {
-    modules: [path.resolve('./node_modules'), path.resolve('./src'), path.resolve('../../node_modules')],
+    modules: [
+      path.resolve('./node_modules'),
+      path.resolve('./src'),
+      path.resolve('../../node_modules'),
+    ],
     extensions: ['.json', '.js', '.jsx', '.tsx', '.ts'],
   },
 };

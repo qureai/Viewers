@@ -1,3 +1,3 @@
-import HotkeyField from './HotkeyField.tsx';
+import HotkeyField from './HotkeyField';
 
 export default HotkeyField;

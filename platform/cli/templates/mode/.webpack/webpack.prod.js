@@ -14,7 +14,7 @@ const config = {
     path: outputFolder,
     filename: outputFile,
     library: pkg.name,
-    libraryTarget: 'umd',
+    libraryTarget: 'commonjs2',
     chunkFilename: '[name].chunk.js',
     umdNamedDefine: true,
     globalObject: "typeof self !== 'undefined' ? self : this",

@@ -403,7 +403,7 @@ const OHIFCornerstoneViewport = React.memo(props => {
         positionPresentation:
           positionPresentationStore[presentationIds?.positionPresentationId],
         lutPresentation:
-          lutPresentationStore[presentationIds?.lutPresentationId],
+          lutPresentationStore[presentationIds.lutPresentationId],
       };
 
       cornerstoneViewportService.setViewportData(

@@ -1,3 +1,3 @@
-import HotkeysPreferences from './HotkeysPreferences.tsx';
+import HotkeysPreferences from './HotkeysPreferences';
 
 export default HotkeysPreferences;

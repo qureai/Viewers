@@ -56,9 +56,11 @@
   },
   "dependencies": {
     "@babel/runtime": "7.16.3",
+    "@cornerstonejs/core": "0.41.2",
     "@cornerstonejs/tools": "0.61.0",
     "@kitware/vtk.js": "25.9.0",
-    "core-js": "^3.2.1"
+    "core-js": "^3.2.1",
+    "detect-gpu": "^5.0.22"
   },
   "peerDependencies": {
     "react": "17.0.2",
@@ -93,8 +95,8 @@
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-config-react-app": "^6.0.0",
-    "eslint-plugin-flowtype": "^7.0.0",
     "eslint-plugin-cypress": "^2.12.1",
+    "eslint-plugin-flowtype": "^7.0.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-node": "^11.1.0",

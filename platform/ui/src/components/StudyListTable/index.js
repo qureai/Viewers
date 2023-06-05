@@ -1,5 +1,5 @@
-import StudyListTable from './StudyListTable.tsx';
-import StudyListTableRow from './StudyListTableRow.tsx';
+import StudyListTable from './StudyListTable';
+import StudyListTableRow from './StudyListTableRow';
 
 export default StudyListTable;
 

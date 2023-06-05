@@ -35,10 +35,26 @@ module.exports = (env, argv) => {
     output: {
       path: ROOT_DIR,
       library: 'OHIFExtCornerstone',
-      libraryTarget: 'umd',
+      libraryTarget: 'commonjs2',
       libraryExport: 'default',
       filename: pkg.main,
     },
+    externals: [
+      {
+        react: {
+          root: 'React',
+          commonjs2: 'react',
+          commonjs: 'react',
+          amd: 'react',
+        },
+        react: {
+          root: 'ReactDOM',
+          commonjs2: 'react-dom',
+          commonjs: 'react-dom',
+          amd: 'react-dom',
+        },
+      },
+    ],
     plugins: [
       new webpack.optimize.LimitChunkCountPlugin({
         maxChunks: 1,

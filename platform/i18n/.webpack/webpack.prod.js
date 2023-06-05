@@ -34,7 +34,7 @@ module.exports = (env, argv) => {
     output: {
       path: ROOT_DIR,
       library: 'ohifI18n',
-      libraryTarget: 'umd',
+      libraryTarget: 'commonjs2',
       filename: pkg.main,
     },
   });

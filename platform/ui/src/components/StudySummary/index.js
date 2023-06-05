@@ -1,3 +1,3 @@
-import StudySummary from './StudySummary.tsx';
+import StudySummary from './StudySummary';
 
 export default StudySummary;

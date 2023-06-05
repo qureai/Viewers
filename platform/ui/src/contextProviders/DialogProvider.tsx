@@ -5,6 +5,7 @@ import React, {
   useCallback,
   useEffect,
   useRef,
+  useId,
 } from 'react';
 
 import PropTypes from 'prop-types';
@@ -16,7 +17,7 @@ import classNames from 'classnames';
  * not allow us to access window element and @ohif/core does use it once
  * we import to instanciate cornerstone
  */
-import guid from './../../../core/src/utils/guid';
+// import guid from './../../../core/src/utils/guid';
 
 // import './DialogProvider.css';
 
@@ -30,6 +31,8 @@ const DialogProvider = ({ children, service }) => {
   const [lastDialogId, setLastDialogId] = useState(null);
   const [lastDialogPosition, setLastDialogPosition] = useState(null);
   const [centerPositions, setCenterPositions] = useState([]);
+
+  const guid = useId();
 
   useEffect(() => {
     setCenterPositions(
@@ -80,7 +83,7 @@ const DialogProvider = ({ children, service }) => {
 
     let dialogId = id;
     if (!dialogId) {
-      dialogId = guid();
+      dialogId = guid;
     }
 
     setDialogs(dialogs => [...dialogs, { ...props, id: dialogId }]);

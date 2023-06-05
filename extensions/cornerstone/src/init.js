@@ -154,8 +154,7 @@ export default async function init({
 
     console.log({ metadataProvider, csUtilities, metaData });
 
-    const boundCaliberation =
-      csUtilities.calibratedPixelSpacingMetadataProvider.get.bind(
+    const boundCaliberation = csUtilities.calibratedPixelSpacingMetadataProvider.get.bind(
         csUtilities.calibratedPixelSpacingMetadataProvider
       );
 

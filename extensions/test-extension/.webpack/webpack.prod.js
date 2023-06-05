@@ -30,7 +30,7 @@ module.exports = (env, argv) => {
     output: {
       path: ROOT_DIR,
       library: 'OHIFExtDICOMSR',
-      libraryTarget: 'umd',
+      libraryTarget: 'commonjs2',
       libraryExport: 'default',
       filename: pkg.main,
     },
