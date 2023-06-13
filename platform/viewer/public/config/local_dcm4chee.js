@@ -1,5 +1,9 @@
 window.config = {
   routerBasename: '/',
+  customizationService: {
+    dicomUploadComponent:
+      '@ohif/extension-cornerstone.customizationModule.cornerstoneDicomUploadComponent',
+  },
   showStudyList: true,
   extensions: [],
   modes: [],
@@ -9,6 +13,7 @@ window.config = {
   showCPUFallbackMessage: true,
   showLoadingIndicator: true,
   strictZSpacingForVolumeViewport: true,
+  defaultDataSourceName: 'dicomweb',
   dataSources: [
     {
       friendlyName: 'DCM4CHEE Server',
@@ -25,6 +30,14 @@ window.config = {
         thumbnailRendering: 'wadors',
         requestOptions: {
           auth: 'admin:admin',
+        },
+        dicomUploadEnabled: true,
+        singlepart: 'pdf,video',
+        // whether the data source should use retrieveBulkData to grab metadata,
+        // and in case of relative path, what would it be relative to, options
+        // are in the series level or study level (some servers like series some study)
+        bulkDataURI: {
+          enabled: true,
         },
       },
     },
@@ -44,5 +57,4 @@ window.config = {
     },
   ],
   studyListFunctionsEnabled: true,
-  defaultDataSourceName: 'dicomweb',
 };

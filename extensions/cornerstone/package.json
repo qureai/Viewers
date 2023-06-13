@@ -7,6 +7,11 @@
   "repository": "OHIF/Viewers",
   "main": "dist/index.js",
   "module": "src/index.tsx",
+  "types": "src/types/index.ts",
+  "exports": {
+    ".": "./src/index.tsx",
+    "./types": "./src/types/index.ts"
+  },
   "engines": {
     "node": ">=10",
     "npm": ">=6",
@@ -33,9 +38,19 @@
   "peerDependencies": {
     "@ohif/core": "^3.0.0",
     "@ohif/ui": "^2.0.0",
+<<<<<<< HEAD
     "cornerstone-wado-image-loader": "4.13.0",
     "dcmjs": "^0.29.4",
     "dicom-parser": "^1.8.9",
+=======
+    "@cornerstonejs/dicom-image-loader": "^0.6.8",
+    "@cornerstonejs/codec-charls": "^1.2.3",
+    "@cornerstonejs/codec-libjpeg-turbo-8bit": "^1.2.2",
+    "@cornerstonejs/codec-openjpeg": "^1.2.2",
+    "@cornerstonejs/codec-openjph": "^2.4.2",
+    "dcmjs": "^0.29.6",
+    "dicom-parser": "^1.8.21",
+>>>>>>> 869b8ced0581904ebac1867ca302635a93129f02
     "hammerjs": "^2.0.8",
     "prop-types": "^15.6.2",
     "react": "^17.0.2",
@@ -46,11 +61,19 @@
     "lodash": "^4.17.21"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@babel/runtime": "7.17.9",
     "@cornerstonejs/adapters": "^0.6.0",
     "@cornerstonejs/core": "1.1.6",
     "@cornerstonejs/streaming-image-volume-loader": "1.1.6",
     "@cornerstonejs/tools": "1.1.6",
+=======
+    "@babel/runtime": "^7.20.13",
+    "@cornerstonejs/adapters": "^1.1.0",
+    "@cornerstonejs/core": "^1.1.0",
+    "@cornerstonejs/streaming-image-volume-loader": "^1.1.0",
+    "@cornerstonejs/tools": "^1.1.0",
+>>>>>>> 869b8ced0581904ebac1867ca302635a93129f02
     "@kitware/vtk.js": "27.3.1",
     "html2canvas": "^1.4.1",
     "lodash.debounce": "4.0.8",

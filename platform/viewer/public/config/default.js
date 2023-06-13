@@ -24,6 +24,17 @@ window.config = {
     prefetch: 25,
   },
   // filterQueryParam: false,
+  defaultDataSourceName: 'dicomweb',
+  /* Dynamic config allows user to pass "configUrl" query string this allows to load config without recompiling application. The regex will ensure valid configuration source */
+  // dangerouslyUseDynamicConfig: {
+  //   enabled: true,
+  //   // regex will ensure valid configuration source and default is /.*/ which matches any character. To use this, setup your own regex to choose a specific source of configuration only.
+  //   // Example 1, to allow numbers and letters in an absolute or sub-path only.
+  //   // regex: /(0-9A-Za-z.]+)(\/[0-9A-Za-z.]+)*/
+  //   // Example 2, to restricts to either hosptial.com or othersite.com.
+  //   // regex: /(https:\/\/hospital.com(\/[0-9A-Za-z.]+)*)|(https:\/\/othersite.com(\/[0-9A-Za-z.]+)*)/
+  //   regex: /.*/,
+  // },
   dataSources: [
     {
       friendlyName: 'dcmjs DICOMWeb Server',
@@ -37,9 +48,9 @@ window.config = {
         // wadoRoot: 'https://server.dcmjs.org/dcm4chee-arc/aets/DCM4CHEE/rs',
 
         // new server
-        wadoUriRoot: 'https://domvja9iplmyu.cloudfront.net/dicomweb',
-        qidoRoot: 'https://domvja9iplmyu.cloudfront.net/dicomweb',
-        wadoRoot: 'https://domvja9iplmyu.cloudfront.net/dicomweb',
+        wadoUriRoot: 'https://d33do7qe4w26qo.cloudfront.net/dicomweb',
+        qidoRoot: 'https://d33do7qe4w26qo.cloudfront.net/dicomweb',
+        wadoRoot: 'https://d33do7qe4w26qo.cloudfront.net/dicomweb',
 
         qidoSupportsIncludeField: false,
         supportsReject: false,
@@ -49,7 +60,22 @@ window.config = {
         supportsFuzzyMatching: false,
         supportsWildcard: true,
         staticWado: true,
-        singlepart: 'bulkdata,video,pdf',
+        singlepart: 'bulkdata,video',
+        // whether the data source should use retrieveBulkData to grab metadata,
+        // and in case of relative path, what would it be relative to, options
+        // are in the series level or study level (some servers like series some study)
+        bulkDataURI: {
+          enabled: true,
+          relativeResolution: 'studies',
+        },
+      },
+    },
+    {
+      friendlyName: 'dicomweb delegating proxy',
+      namespace: '@ohif/extension-default.dataSourcesModule.dicomwebproxy',
+      sourceName: 'dicomwebproxy',
+      configuration: {
+        name: 'dicomwebproxy',
       },
     },
     {
@@ -87,13 +113,12 @@ window.config = {
   //       },
   //       React.createElement('img',
   //         {
-  //           src: './customLogo.svg',
+  //           src: './assets/customLogo.svg',
   //           className: 'w-8 h-8',
   //         }
   //       ))
   //   },
   // },
-  defaultDataSourceName: 'dicomweb',
   hotkeys: [
     {
       commandName: 'incrementActiveViewport',

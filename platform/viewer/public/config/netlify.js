@@ -1,6 +1,5 @@
 window.config = {
   routerBasename: '/',
-  // whiteLabelling: {},
   extensions: [],
   modes: [],
   showStudyList: true,
@@ -11,6 +10,7 @@ window.config = {
   showLoadingIndicator: true,
   strictZSpacingForVolumeViewport: true,
   // filterQueryParam: false,
+  defaultDataSourceName: 'dicomweb',
   dataSources: [
     {
       friendlyName: 'dcmjs DICOMWeb Server',
@@ -18,9 +18,10 @@ window.config = {
       sourceName: 'dicomweb',
       configuration: {
         name: 'aws',
-        wadoUriRoot: 'https://domvja9iplmyu.cloudfront.net/dicomweb',
-        qidoRoot: 'https://domvja9iplmyu.cloudfront.net/dicomweb',
-        wadoRoot: 'https://domvja9iplmyu.cloudfront.net/dicomweb',
+        wadoUriRoot: 'https://d33do7qe4w26qo.cloudfront.net/dicomweb',
+        qidoRoot: 'https://d33do7qe4w26qo.cloudfront.net/dicomweb',
+        wadoRoot: 'https://d33do7qe4w26qo.cloudfront.net/dicomweb',
+
         qidoSupportsIncludeField: false,
         supportsReject: false,
         imageRendering: 'wadors',
@@ -29,7 +30,14 @@ window.config = {
         supportsFuzzyMatching: false,
         supportsWildcard: true,
         staticWado: true,
-        singlepart: 'bulkdata,video,pdf',
+        singlepart: 'bulkdata,video',
+        // whether the data source should use retrieveBulkData to grab metadata,
+        // and in case of relative path, what would it be relative to, options
+        // are in the series level or study level (some servers like series some study)
+        bulkDataURI: {
+          enabled: true,
+          relativeResolution: 'studies',
+        },
       },
     },
     {
@@ -54,26 +62,6 @@ window.config = {
     // Could use services manager here to bring up a dialog/modal if needed.
     console.warn('test, navigate to https://ohif.org/');
   },
-  // whiteLabeling: {
-  //   /* Optional: Should return a React component to be rendered in the "Logo" section of the application's Top Navigation bar */
-  //   createLogoComponentFn: function (React) {
-  //     return React.createElement(
-  //       'a',
-  //       {
-  //         target: '_self',
-  //         rel: 'noopener noreferrer',
-  //         className: 'text-purple-600 line-through',
-  //         href: '/',
-  //       },
-  //       React.createElement('img',
-  //         {
-  //           src: './customLogo.svg',
-  //           className: 'w-8 h-8',
-  //         }
-  //       ))
-  //   },
-  // },
-  defaultDataSourceName: 'dicomweb',
   hotkeys: [
     {
       commandName: 'incrementActiveViewport',
