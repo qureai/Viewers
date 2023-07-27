@@ -1,22 +1,17 @@
-import React, { useEffect, useState, useMemo } from 'react';
-import classNames from 'classnames';
+import React, { useEffect, useState, useMemo } from "react";
+import classNames from "classnames";
 import {
   metaData,
   Enums,
   Types,
   getEnabledElement,
   utilities as csUtils,
-} from '@cornerstonejs/core';
-import { utilities } from '@cornerstonejs/tools';
-import PropTypes from 'prop-types';
-import { vec3 } from 'gl-matrix';
+} from "@cornerstonejs/core";
+import { utilities } from "@cornerstonejs/tools";
+import PropTypes from "prop-types";
+import { vec3 } from "gl-matrix";
 
-// import './ViewportOrientationMarkers.css';
-
-const {
-  getOrientationStringLPS,
-  invertOrientationStringLPS,
-} = utilities.orientation;
+const { getOrientationStringLPS, invertOrientationStringLPS } = utilities.orientation;
 
 function ViewportOrientationMarkers({
   element,
@@ -24,7 +19,7 @@ function ViewportOrientationMarkers({
   imageSliceData,
   viewportIndex,
   servicesManager,
-  orientationMarkers = ['top', 'left'],
+  orientationMarkers = ["top", "left"],
 }) {
   // Rotation is in degrees
   const [rotation, setRotation] = useState(0);
@@ -33,9 +28,7 @@ function ViewportOrientationMarkers({
   const { cornerstoneViewportService } = servicesManager.services;
 
   useEffect(() => {
-    const cameraModifiedListener = (
-      evt: Types.EventTypes.CameraModifiedEvent
-    ) => {
+    const cameraModifiedListener = (evt: Types.EventTypes.CameraModifiedEvent) => {
       const { rotation, previousCamera, camera } = evt.detail;
 
       if (rotation !== undefined) {
@@ -57,26 +50,20 @@ function ViewportOrientationMarkers({
       }
     };
 
-    element.addEventListener(
-      Enums.Events.CAMERA_MODIFIED,
-      cameraModifiedListener
-    );
+    element.addEventListener(Enums.Events.CAMERA_MODIFIED, cameraModifiedListener);
 
     return () => {
-      element.removeEventListener(
-        Enums.Events.CAMERA_MODIFIED,
-        cameraModifiedListener
-      );
+      element.removeEventListener(Enums.Events.CAMERA_MODIFIED, cameraModifiedListener);
     };
   }, []);
 
   const markers = useMemo(() => {
     if (!viewportData) {
-      return '';
+      return "";
     }
 
     let rowCosines, columnCosines;
-    if (viewportData.viewportType === 'stack') {
+    if (viewportData.viewportType === "stack") {
       const imageIndex = imageSliceData.imageIndex;
       const imageId = viewportData.data.imageIds?.[imageIndex];
 
@@ -85,11 +72,10 @@ function ViewportOrientationMarkers({
         return false;
       }
 
-      ({ rowCosines, columnCosines } =
-        metaData.get('imagePlaneModule', imageId) || {});
+      ({ rowCosines, columnCosines } = metaData.get("imagePlaneModule", imageId) || {});
     } else {
       if (!element || !getEnabledElement(element)) {
-        return '';
+        return "";
       }
 
       const { viewport } = getEnabledElement(element);
@@ -103,7 +89,7 @@ function ViewportOrientationMarkers({
     }
 
     if (!rowCosines || !columnCosines || rotation === undefined) {
-      return '';
+      return "";
     }
 
     const markers = _getOrientationMarkers(
@@ -114,27 +100,23 @@ function ViewportOrientationMarkers({
       flipHorizontal
     );
 
-    const ohifViewport = cornerstoneViewportService.getViewportInfoByIndex(
-      viewportIndex
-    );
+    const ohifViewport = cornerstoneViewportService.getViewportInfoByIndex(viewportIndex);
 
     if (!ohifViewport) {
-      console.log('ViewportOrientationMarkers::No viewport');
+      console.log("ViewportOrientationMarkers::No viewport");
       return null;
     }
     const backgroundColor = ohifViewport.getViewportOptions().background;
 
     // Todo: probably this can be done in a better way in which we identify bright
     // background
-    const isLight = backgroundColor
-      ? csUtils.isEqual(backgroundColor, [1, 1, 1])
-      : false;
+    const isLight = backgroundColor ? csUtils.isEqual(backgroundColor, [1, 1, 1]) : false;
 
     return orientationMarkers.map((m, index) => (
       <div
         className={classNames(
           `${m}-mid orientation-marker`,
-          isLight ? 'text-[#726F7E]' : 'text-[#ccc]'
+          isLight ? "text-[#726F7E]" : "text-[#ccc]"
         )}
         key={`${m}-mid orientation-marker`}
       >

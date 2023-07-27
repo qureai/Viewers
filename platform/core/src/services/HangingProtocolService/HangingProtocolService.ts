@@ -387,6 +387,7 @@ export default class HangingProtocolService extends PubSubService {
       activeStudy,
       displaySets,
     });
+    console.log({ matchedProtocol });
     this._setProtocol(matchedProtocol);
   }
 
@@ -1228,6 +1229,8 @@ export default class HangingProtocolService extends PubSubService {
     // but it is a info to locate the displaySet from the displaySetService
     const displaySetsInfo = [];
     const { StudyInstanceUID: activeStudyUID } = this.activeStudy;
+
+    console.log({ X: viewport.displaySets });
     viewport.displaySets.forEach(displaySetOptions => {
       const { id, matchedDisplaySetsIndex = 0 } = displaySetOptions;
       const reuseDisplaySetUID =
@@ -1413,6 +1416,8 @@ export default class HangingProtocolService extends PubSubService {
         'display sets #',
         studyDisplaySets.length
       );
+
+      console.log({ studyDisplaySets });
       studyDisplaySets.forEach(displaySet => {
         const {
           StudyInstanceUID,

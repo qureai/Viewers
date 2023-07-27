@@ -26,6 +26,7 @@ import {
   ReferenceLinesTool,
   TrackballRotateTool,
 } from '@cornerstonejs/tools';
+import { destroy } from './initWADOImageLoader';
 
 import CalibrationLineTool from './tools/CalibrationLineTool';
 
@@ -33,6 +34,7 @@ export default function initCornerstoneTools(configuration = {}) {
   CrosshairsTool.isAnnotation = false;
   ReferenceLinesTool.isAnnotation = false;
 
+  destroy();
   init(configuration);
   addTool(PanTool);
   addTool(WindowLevelTool);

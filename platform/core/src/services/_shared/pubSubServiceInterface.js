@@ -110,13 +110,13 @@ export class PubSubService {
    * Check eventData.isConsumed to see if it is consumed or not.
    * @param props - to include in the event
    */
-  protected createConsumableEvent(props) {
+  createConsumableEvent(props) {
     return {
       ...props,
       isConsumed: false,
       consume: function Consume() {
         this.isConsumed = true;
       },
-    }
+    };
   }
 }

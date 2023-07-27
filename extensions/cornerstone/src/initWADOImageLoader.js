@@ -1,11 +1,11 @@
-import * as cornerstone from '@cornerstonejs/core';
-import { volumeLoader } from '@cornerstonejs/core';
-import { cornerstoneStreamingImageVolumeLoader } from '@cornerstonejs/streaming-image-volume-loader';
-import dicomImageLoader, {
+import * as cornerstone from "@cornerstonejs/core";
+import { volumeLoader } from "@cornerstonejs/core";
+import { cornerstoneStreamingImageVolumeLoader } from "@cornerstonejs/streaming-image-volume-loader";
+import cornerstoneWADOImageLoader, {
   webWorkerManager,
-} from '@cornerstonejs/dicom-image-loader';
-import dicomParser from 'dicom-parser';
-import { errorHandler } from '@ohif/core';
+} from "cornerstone-wado-image-loader";
+import dicomParser from "dicom-parser";
+import { errorHandler } from "@ohif/core";
 
 const { registerVolumeLoader } = volumeLoader;
 
@@ -18,6 +18,8 @@ function initWebWorkers(appConfig) {
       appConfig.maxNumberOfWebWorkers
     ),
     webWorkerTaskPaths: [
+      "https://unpkg.com/cornerstone-wado-image-loader@4.1.0/dist/610.bundle.min.worker.js",
+      "https://unpkg.com/cornerstone-wado-image-loader@4.1.0/dist/888.bundle.min.worker.js",
       // 'https://unpkg.com/cornerstone-wado-image-loader@4.1.0/dist/610.bundle.min.js',
     ],
     startWebWorkersOnDemand: true,
@@ -31,24 +33,21 @@ function initWebWorkers(appConfig) {
   };
 
   if (!initialized) {
-    dicomImageLoader.webWorkerManager.initialize(config);
+    cornerstoneWADOImageLoader.webWorkerManager.initialize(config);
     initialized = true;
   }
 }
 
-export default function initWADOImageLoader(
-  userAuthenticationService,
-  appConfig
-) {
-  dicomImageLoader.external.cornerstone = cornerstone;
-  dicomImageLoader.external.dicomParser = dicomParser;
+export default function initWADOImageLoader(userAuthenticationService, appConfig) {
+  cornerstoneWADOImageLoader.external.cornerstone = cornerstone;
+  cornerstoneWADOImageLoader.external.dicomParser = dicomParser;
 
   registerVolumeLoader(
-    'cornerstoneStreamingImageVolume',
+    "cornerstoneStreamingImageVolume",
     cornerstoneStreamingImageVolumeLoader
   );
 
-  dicomImageLoader.configure({
+  cornerstoneWADOImageLoader.configure({
     decodeConfig: {
       // !! IMPORTANT !!
       // We should set this flag to false, since, by default @cornerstonejs/dicom-image-loader
@@ -57,7 +56,6 @@ export default function initWADOImageLoader(
       // we should set this flag to false.
       convertFloatPixelDataToInt: false,
     },
-<<<<<<< HEAD
     beforeSend: function (xhr) {
       // const headers = UserAuthenticationService.getAuthorizationHeader();
       // // Request:
@@ -75,30 +73,8 @@ export default function initWADOImageLoader(
       //   xhrRequestHeaders.Authorization = headers.Authorization;
       // }
       // return xhrRequestHeaders;
-=======
-    beforeSend: function(xhr) {
-      const headers = userAuthenticationService.getAuthorizationHeader();
-
-      // Request:
-      // JPEG-LS Lossless (1.2.840.10008.1.2.4.80) if available, otherwise accept
-      // whatever transfer-syntax the origin server provides.
-      // For now we use image/jls and image/x-jls because some servers still use the old type
-      // http://dicom.nema.org/medical/dicom/current/output/html/part18.html
-      const xhrRequestHeaders = {
-        Accept: appConfig.omitQuotationForMultipartRequest
-          ? 'multipart/related; type=application/octet-stream'
-          : 'multipart/related; type="application/octet-stream"',
-        // 'multipart/related; type="image/x-jls", multipart/related; type="image/jls"; transfer-syntax="1.2.840.10008.1.2.4.80", multipart/related; type="image/x-jls", multipart/related; type="application/octet-stream"; transfer-syntax=*',
-      };
-
-      if (headers) {
-        Object.assign(xhrRequestHeaders, headers);
-      }
-
-      return xhrRequestHeaders;
->>>>>>> 869b8ced0581904ebac1867ca302635a93129f02
     },
-    errorInterceptor: error => {
+    errorInterceptor: (error) => {
       // errorHandler.getHTTPErrorHandler(error);
     },
   });

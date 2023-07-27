@@ -1,17 +1,17 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { vec3 } from 'gl-matrix';
-import PropTypes from 'prop-types';
-import { metaData, Enums, utilities } from '@cornerstonejs/core';
-import { ViewportOverlay } from '@ohif/ui';
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { vec3 } from "gl-matrix";
+import PropTypes from "prop-types";
+import { metaData, Enums, utilities } from "@cornerstonejs/core";
+import ViewportOverlay from "../../components/ViewportOverlay";
 import {
   formatPN,
   formatDICOMDate,
   formatDICOMTime,
   formatNumberPrecision,
-} from './utils';
-import { InstanceMetadata } from 'platform/core/src/types';
-import { ServicesManager } from '@ohif/core';
-import { ImageSliceData } from '@cornerstonejs/core/dist/esm/types';
+} from "./utils";
+import { InstanceMetadata } from "platform/core/src/types";
+import { ServicesManager } from "@ohif/core";
+import { ImageSliceData } from "@cornerstonejs/core/dist/esm/types";
 
 // import './CustomizableViewportOverlay.css';
 
@@ -46,7 +46,7 @@ interface OverlayItemProps {
  */
 function VOIOverlayItem({ voi, customization }: OverlayItemProps) {
   const { windowWidth, windowCenter } = voi;
-  if (typeof windowCenter !== 'number' || typeof windowWidth !== 'number') {
+  if (typeof windowCenter !== "number" || typeof windowWidth !== "number") {
     return null;
   }
 
@@ -56,13 +56,9 @@ function VOIOverlayItem({ voi, customization }: OverlayItemProps) {
       style={{ color: (customization && customization.color) || undefined }}
     >
       <span className="mr-1 shrink-0">W:</span>
-      <span className="ml-1 mr-2 font-light shrink-0">
-        {windowWidth.toFixed(0)}
-      </span>
+      <span className="ml-1 mr-2 font-light shrink-0">{windowWidth.toFixed(0)}</span>
       <span className="mr-1 shrink-0">L:</span>
-      <span className="ml-1 font-light shrink-0">
-        {windowCenter.toFixed(0)}
-      </span>
+      <span className="ml-1 font-light shrink-0">{windowCenter.toFixed(0)}</span>
     </div>
   );
 }
@@ -93,17 +89,32 @@ function InstanceNumberOverlayItem({
   const { imageIndex, numberOfSlices } = imageSliceData;
 
   return (
-    <div
-      className="overlay-item flex flex-row"
-      style={{ color: (customization && customization.color) || undefined }}
-    >
-      <span className="mr-1 shrink-0">I:</span>
-      <span className="font-light">
-        {instanceNumber !== undefined && instanceNumber !== null
-          ? `${instanceNumber} (${imageIndex + 1}/${numberOfSlices})`
-          : `${imageIndex + 1}/${numberOfSlices}`}
-      </span>
-    </div>
+    <>
+      {numberOfSlices > 1 && (
+        <div
+          className="overlay-item flex flex-row text-md"
+          style={{ color: (customization && customization.color) || undefined }}
+        >
+          <div>
+            <svg
+              className="text-teal-300 mr-2"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M6.354.466C6.557.38 6.78.333 7 .333c.221 0 .42.046.646.133l5.45 2.336a.94.94 0 0 1 0 1.73l-5.45 2.335A1.706 1.706 0 0 1 7 7a1.62 1.62 0 0 1-.646-.133L.904 4.531a.94.94 0 0 1 0-1.729L6.354.466ZM7 1.583c-.075 0-.128.011-.154.032L2.06 3.667l4.787 2.052c.026.02.079.031.154.031.052 0 .104-.01.154-.031l4.786-2.052-4.786-2.052A.396.396 0 0 0 7 1.583Zm-.154 7.47c.026.02.079.03.154.03.052 0 .104-.01.154-.03l4.95-2.123a.626.626 0 0 1 .8-.906l.237.12a.949.949 0 0 1-.05 1.723l-5.445 2.334a1.707 1.707 0 0 1-.646.133 1.62 1.62 0 0 1-.646-.133L.927 7.875a.978.978 0 0 1-.183-1.698l.268-.192a.625.625 0 0 1 .872.145.6.6 0 0 1-.064.779l5.026 2.143Zm-4.962.41a.6.6 0 0 1-.064.78l5.026 2.143c.026.02.079.03.154.03.052 0 .104-.01.154-.03l4.95-2.123a.626.626 0 0 1 .8-.906l.237.12a.949.949 0 0 1-.05 1.724l-5.445 2.333a1.705 1.705 0 0 1-.646.133c-.221 0-.443-.044-.646-.133L.927 11.209A.978.978 0 0 1 .744 9.51l.268-.193a.625.625 0 0 1 .872.146Z" />
+            </svg>
+          </div>
+          <span className="mr-1 shrink-0">I:</span>
+          {
+            <span className="font-light">
+              {instanceNumber !== undefined && instanceNumber !== null
+                ? `${instanceNumber} (${imageIndex + 1}/${numberOfSlices})`
+                : `${imageIndex + 1}/${numberOfSlices}`}
+            </span>
+          }
+        </div>
+      )}
+    </>
   );
 }
 
@@ -128,16 +139,16 @@ function CustomizableViewportOverlay({
   const { imageIndex } = imageSliceData;
 
   const topLeftCustomization = customizationService.getModeCustomization(
-    'cornerstoneOverlayTopLeft'
+    "cornerstoneOverlayTopLeft"
   );
   const topRightCustomization = customizationService.getModeCustomization(
-    'cornerstoneOverlayTopRight'
+    "cornerstoneOverlayTopRight"
   );
   const bottomLeftCustomization = customizationService.getModeCustomization(
-    'cornerstoneOverlayBottomLeft'
+    "cornerstoneOverlayBottomLeft"
   );
   const bottomRightCustomization = customizationService.getModeCustomization(
-    'cornerstoneOverlayBottomRight'
+    "cornerstoneOverlayBottomRight"
   );
 
   const instance = useMemo(() => {
@@ -171,7 +182,7 @@ function CustomizableViewportOverlay({
    * Updating the VOI when the viewport changes its voi
    */
   useEffect(() => {
-    const updateVOI = eventDetail => {
+    const updateVOI = (eventDetail) => {
       const { range } = eventDetail.detail;
 
       if (!range) {
@@ -198,7 +209,7 @@ function CustomizableViewportOverlay({
    * Updating the scale when the viewport changes its zoom
    */
   useEffect(() => {
-    const updateScale = eventDetail => {
+    const updateScale = (eventDetail) => {
       const { previousCamera, camera } = eventDetail.detail;
 
       if (
@@ -226,8 +237,7 @@ function CustomizableViewportOverlay({
 
         const { spacing } = imageData;
         // convert parallel scale to scale
-        const scale =
-          (element.clientHeight * spacing[0] * 0.5) / camera.parallelScale;
+        const scale = (element.clientHeight * spacing[0] * 0.5) / camera.parallelScale;
         setScale(scale);
       }
     };
@@ -257,7 +267,7 @@ function CustomizableViewportOverlay({
   }, [toolbarService]);
 
   const _renderOverlayItem = useCallback(
-    item => {
+    (item) => {
       const overlayItemProps: OverlayItemProps = {
         element,
         viewportData,
@@ -278,16 +288,16 @@ function CustomizableViewportOverlay({
         instanceNumber,
       };
 
-      if (item.customizationType === 'ohif.overlayItem.windowLevel') {
+      if (item.customizationType === "ohif.overlayItem.windowLevel") {
         return <VOIOverlayItem {...overlayItemProps} />;
-      } else if (item.customizationType === 'ohif.overlayItem.zoomLevel') {
+      } else if (item.customizationType === "ohif.overlayItem.zoomLevel") {
         return <ZoomOverlayItem {...overlayItemProps} />;
-      } else if (item.customizationType === 'ohif.overlayItem.instanceNumber') {
+      } else if (item.customizationType === "ohif.overlayItem.instanceNumber") {
         return <InstanceNumberOverlayItem {...overlayItemProps} />;
       } else {
         const renderItem = customizationService.transform(item);
 
-        if (typeof renderItem.content === 'function') {
+        if (typeof renderItem.content === "function") {
           return renderItem.content(overlayItemProps);
         }
       }
@@ -309,8 +319,8 @@ function CustomizableViewportOverlay({
   const getTopLeftContent = useCallback(() => {
     const items = topLeftCustomization?.items || [
       {
-        id: 'WindowLevel',
-        customizationType: 'ohif.overlayItem.windowLevel',
+        id: "WindowLevel",
+        customizationType: "ohif.overlayItem.windowLevel",
       },
     ];
     return (
@@ -325,8 +335,8 @@ function CustomizableViewportOverlay({
   const getTopRightContent = useCallback(() => {
     const items = topRightCustomization?.items || [
       {
-        id: 'InstanceNmber',
-        customizationType: 'ohif.overlayItem.instanceNumber',
+        id: "InstanceNmber",
+        customizationType: "ohif.overlayItem.instanceNumber",
       },
     ];
     return (
@@ -343,9 +353,7 @@ function CustomizableViewportOverlay({
     return (
       <>
         {items.map((item, i) => (
-          <div key={`bottomLeftOverlayItem_${i}`}>
-            {_renderOverlayItem(item)}
-          </div>
+          <div key={`bottomLeftOverlayItem_${i}`}>{_renderOverlayItem(item)}</div>
         ))}
       </>
     );
@@ -356,9 +364,7 @@ function CustomizableViewportOverlay({
     return (
       <>
         {items.map((item, i) => (
-          <div key={`bottomRightOverlayItem_${i}`}>
-            {_renderOverlayItem(item)}
-          </div>
+          <div key={`bottomRightOverlayItem_${i}`}>{_renderOverlayItem(item)}</div>
         ))}
       </>
     );
@@ -366,10 +372,8 @@ function CustomizableViewportOverlay({
 
   return (
     <ViewportOverlay
-      topLeft={getTopLeftContent()}
-      topRight={getTopRightContent()}
-      bottomLeft={getBottomLeftContent()}
-      bottomRight={getBottomRightContent()}
+      bottomLeft={getTopLeftContent()}
+      bottomRight={getTopRightContent()}
     />
   );
 }
@@ -385,7 +389,7 @@ function _getViewportInstance(viewportData, imageIndex) {
       imageId = volume.imageIds[imageIndex];
     }
   }
-  return imageId ? metaData.get('instance', imageId) || {} : {};
+  return imageId ? metaData.get("instance", imageId) || {} : {};
 }
 
 function _getInstanceNumber(
@@ -421,7 +425,7 @@ function _getInstanceNumberFromStack(viewportData, imageIndex) {
     return;
   }
 
-  const generalImageModule = metaData.get('generalImageModule', imageId) || {};
+  const generalImageModule = metaData.get("generalImageModule", imageId) || {};
   const { instanceNumber } = generalImageModule;
 
   const stackSize = imageIds.length;
@@ -477,8 +481,7 @@ function _getInstanceNumberFromVolume(
       return {};
     }
 
-    const { instanceNumber } =
-      metaData.get('generalImageModule', imageId) || {};
+    const { instanceNumber } = metaData.get("generalImageModule", imageId) || {};
     return parseInt(instanceNumber);
   }
 }

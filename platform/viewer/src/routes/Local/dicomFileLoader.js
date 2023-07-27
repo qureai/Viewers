@@ -1,11 +1,11 @@
 import dcmjs from 'dcmjs';
-import dicomImageLoader from '@cornerstonejs/dicom-image-loader';
+import cornerstoneWADOImageLoader from 'cornerstone-wado-image-loader';
 import FileLoader from './fileLoader';
 
 const DICOMFileLoader = new (class extends FileLoader {
   fileType = 'application/dicom';
   loadFile(file, imageId) {
-    return dicomImageLoader.wadouri.loadFileRequest(imageId);
+    return cornerstoneWADOImageLoader.wadouri.loadFileRequest(imageId);
   }
 
   getDataset(image, imageId) {

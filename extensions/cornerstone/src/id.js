@@ -1,5 +1,5 @@
-import packageJson from '../package.json';
+// import packageJson from '../package.json';
 
-const id = packageJson.name;
+const id = '@ohif/extension-cornerstone';
 
 export { id };

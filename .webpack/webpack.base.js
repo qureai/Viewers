@@ -113,8 +113,8 @@ module.exports = (env, argv, { SRC_DIR, DIST_DIR }) => {
         '@state': path.resolve(__dirname, '../platform/viewer/src/state'),
         'dicom-microscopy-viewer':
           'dicom-microscopy-viewer/dist/dynamic-import/dicomMicroscopyViewer.min.js',
-        '@cornerstonejs/dicom-image-loader':
-          '@cornerstonejs/dicom-image-loader/dist/dynamic-import/cornerstoneDICOMImageLoader.min.js',
+        'cornerstone-wado-image-loader':
+          'cornerstone-wado-image-loader/dist/dynamic-import/cornerstoneWADOImageLoader.min.js',
       },
       // Which directories to search when resolving modules
       modules: [

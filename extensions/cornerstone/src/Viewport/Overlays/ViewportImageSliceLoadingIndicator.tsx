@@ -61,10 +61,10 @@ function ViewportImageSliceLoadingIndicator({ viewportData, element }) {
   if (error) {
     return (
       <>
-        <div className="bg-black opacity-50 absolute h-full w-full top-0 left-0">
+        <div className="bg-black absolute h-full w-full top-0 left-0 opacity-50">
           <div className="flex transparent items-center justify-center w-full h-full">
-            <p className="text-primary-light text-xl font-light">
-              <h4>Error Loading Image</h4>
+            <p className="text-red-500 text-md font-light">
+              <p>Error Loading Image</p>
               <p>An error has occurred.</p>
               <p>{error}</p>
             </p>
@@ -78,9 +78,9 @@ function ViewportImageSliceLoadingIndicator({ viewportData, element }) {
     return (
       // IMPORTANT: we need to use the pointer-events-none class to prevent the loading indicator from
       // interacting with the mouse, since scrolling should propagate to the viewport underneath
-      <div className="pointer-events-none bg-black opacity-50 absolute h-full w-full top-0 left-0">
+      <div className="pointer-events-none bg-black  absolute h-full w-full top-0 left-0 text-md opacity-50">
         <div className="flex transparent items-center justify-center w-full h-full">
-          <p className="text-primary-light text-xl font-light">Loading...</p>
+          <p className="text-teal-300 text-base font-light">Loading...</p>
         </div>
       </div>
     );

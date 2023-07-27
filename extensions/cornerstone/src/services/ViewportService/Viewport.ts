@@ -213,7 +213,7 @@ class ViewportInfo {
     viewportOptionsEntry: PublicViewportOptions
   ): void {
     let viewportType = viewportOptionsEntry.viewportType;
-    const {
+    let {
       toolGroupId = DEFAULT_TOOLGROUP_ID,
       presentationIds,
     } = viewportOptionsEntry;

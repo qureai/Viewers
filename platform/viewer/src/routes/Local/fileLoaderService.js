@@ -1,4 +1,4 @@
-import dicomImageLoader from '@cornerstonejs/dicom-image-loader';
+import cornerstoneWADOImageLoader from 'cornerstone-wado-image-loader';
 
 import FileLoader from './fileLoader';
 import PDFFileLoader from './pdfFileLoader';
@@ -15,7 +15,7 @@ class FileLoaderService extends FileLoader {
   }
 
   addFile(file) {
-    return dicomImageLoader.wadouri.fileManager.add(file);
+    return cornerstoneWADOImageLoader.wadouri.fileManager.add(file);
   }
 
   loadFile(file, imageId) {

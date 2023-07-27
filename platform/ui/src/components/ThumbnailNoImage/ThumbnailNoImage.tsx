@@ -17,10 +17,11 @@ const ThumbnailNoImage = ({
   dragData,
   isActive,
 }) => {
+  console.log({ dragData });
   const [collectedProps, drag, dragPreview] = useDrag({
     type: 'displayset',
     item: { ...dragData },
-    canDrag: function(monitor) {
+    canDrag: function (monitor) {
       return Object.keys(dragData).length !== 0;
     },
   });

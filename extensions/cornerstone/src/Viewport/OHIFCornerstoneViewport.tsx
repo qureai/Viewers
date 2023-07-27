@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useCallback, useState } from 'react';
-import ReactResizeDetector from 'react-resize-detector';
 import PropTypes from 'prop-types';
 import * as cs3DTools from '@cornerstonejs/tools';
 import {
@@ -28,6 +27,7 @@ import { setEnabledElement } from '../state';
 import CornerstoneOverlays from './Overlays/CornerstoneOverlays';
 import getSOPInstanceAttributes from '../utils/measurementServiceMappings/utils/getSOPInstanceAttributes';
 import CornerstoneServices from '../types/CornerstoneServices';
+import ReactResizeDetector from 'react-resize-detector';
 
 const STACK = 'stack';
 
@@ -123,6 +123,7 @@ const OHIFCornerstoneViewport = React.memo(props => {
     // of the imageData in the OHIFCornerstoneViewport. This prop is used
     // to set the initial state of the viewport's first image to render
     initialImageIndex,
+    customOverlayComponent,
   } = props;
 
   const [scrollbarHeight, setScrollbarHeight] = useState('100px');
@@ -387,7 +388,6 @@ const OHIFCornerstoneViewport = React.memo(props => {
       }
     );
     return () => {
-      console.log('Inside unmount');
       unsubscribe();
     };
   }, [viewportIndex]);
@@ -492,6 +492,7 @@ const OHIFCornerstoneViewport = React.memo(props => {
           onResize={onResize}
           targetRef={elementRef.current}
         />
+        <div ref={elementRef.current} />
         <div
           className="cornerstone-viewport-element"
           style={{ height: '100%', width: '100%' }}
@@ -499,6 +500,7 @@ const OHIFCornerstoneViewport = React.memo(props => {
           onMouseDown={e => e.preventDefault()}
           ref={elementRef}
         ></div>
+
         <CornerstoneOverlays
           viewportIndex={viewportIndex}
           toolBarService={toolbarService}
@@ -506,25 +508,26 @@ const OHIFCornerstoneViewport = React.memo(props => {
           scrollbarHeight={scrollbarHeight}
           servicesManager={servicesManager}
         />
-        {isCineEnabled && (
+
+        {/* {isCineEnabled && (
           <CinePlayer
             className="absolute left-1/2 -translate-x-1/2 bottom-3"
             isPlaying={isPlaying}
             onClose={handleCineClose}
-            onPlayPauseChange={isPlaying =>
+            onPlayPauseChange={(isPlaying) =>
               cineService.setCine({
                 id: activeViewportIndex,
                 isPlaying,
               })
             }
-            onFrameRateChange={frameRate =>
+            onFrameRateChange={(frameRate) =>
               cineService.setCine({
                 id: activeViewportIndex,
                 frameRate,
               })
             }
           />
-        )}
+        )} */}
       </div>
       <div className="absolute w-full">
         {viewportDialogState.viewportIndex === viewportIndex && (

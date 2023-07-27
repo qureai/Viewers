@@ -112,7 +112,7 @@ module.exports = (env, argv) => {
           // Copy dicom-image-loader build files
           {
             from:
-              '../../../node_modules/@cornerstonejs/dicom-image-loader/dist/dynamic-import',
+              '../../../node_modules/cornerstone-wado-image-loader/dist/dynamic-import',
             to: DIST_DIR,
           },
         ],

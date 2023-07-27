@@ -159,6 +159,7 @@ export class CommandsManager {
       log.warn(`No commandFn was defined for command "${commandName}"`);
       return;
     } else {
+      console.log({ commandFn, commandParams });
       return commandFn(commandParams);
     }
   }

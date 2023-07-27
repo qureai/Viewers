@@ -74,33 +74,12 @@ const cornerstoneExtension: Types.Extensions.Extension = {
   preRegistration: function (
     props: Types.Extensions.ExtensionParams
   ): Promise<void> {
-<<<<<<< HEAD
-    const {
-      servicesManager,
-      commandsManager,
-      configuration,
-      appConfig,
-    } = props;
-    // Todo: we should be consistent with how services get registered. Use REGISTRATION static method for all
-    servicesManager.registerService(
-      CornerstoneViewportService(servicesManager)
-    );
-    servicesManager.registerService(
-      ToolGroupService.REGISTRATION(servicesManager)
-    );
-    servicesManager.registerService(SyncGroupService(servicesManager));
-    servicesManager.registerService(SegmentationService(servicesManager));
-    servicesManager.registerService(
-      CornerstoneCacheService.REGISTRATION(servicesManager)
-    );
-=======
     const { servicesManager } = props;
     servicesManager.registerService(CornerstoneViewportService.REGISTRATION);
     servicesManager.registerService(ToolGroupService.REGISTRATION);
     servicesManager.registerService(SyncGroupService.REGISTRATION);
     servicesManager.registerService(SegmentationService.REGISTRATION);
     servicesManager.registerService(CornerstoneCacheService.REGISTRATION);
->>>>>>> 869b8ced0581904ebac1867ca302635a93129f02
 
     // await init({ servicesManager, commandsManager, configuration, appConfig });
 
@@ -164,5 +143,10 @@ const cornerstoneExtension: Types.Extensions.Extension = {
 };
 
 export type { PublicViewportOptions };
-export { measurementMappingUtils, CornerstoneExtensionTypes, toolNames , getActiveViewportEnabledElement};
+export {
+  measurementMappingUtils,
+  CornerstoneExtensionTypes,
+  toolNames,
+  getActiveViewportEnabledElement,
+};
 export default cornerstoneExtension;

@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import DicomFileUploader from '../../utils/DicomFileUploader';
 import DicomUploadProgress from './DicomUploadProgress';
 import { Button } from '@ohif/ui';
-import './DicomUpload.css';
+// import './DicomUpload.css';
 
 type DicomUploadProps = {
   dataSource;
