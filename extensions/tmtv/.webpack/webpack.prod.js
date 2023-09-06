@@ -10,8 +10,12 @@ const SRC_DIR = path.join(__dirname, '../src');
 const DIST_DIR = path.join(__dirname, '../dist');
 const ENTRYPOINT = path.join(__dirname, '../', pkg.module);
 
+const ENTRY = {
+  app: `${SRC_DIR}/index.tsx`,
+};
+
 module.exports = (env, argv) => {
-  const commonConfig = webpackCommon(env, argv, { SRC_DIR, DIST_DIR });
+  const commonConfig = webpackCommon(env, argv, { SRC_DIR, DIST_DIR, ENTRY });
 
   return merge(commonConfig, {
     entry: {
@@ -30,15 +34,15 @@ module.exports = (env, argv) => {
     },
     optimization: {
       minimize: true,
-      sideEffects: true,
+      sideEffects: false,
     },
     output: {
       path: ROOT_DIR,
-      library: 'OHIFExtDICOMSR',
-      libraryTarget: 'commonjs2',
-      libraryExport: 'default',
+      library: 'ohif-extension-tmtv',
+      libraryTarget: 'umd',
       filename: pkg.main,
     },
+    externals: [/\b(vtk.js)/, /\b(dcmjs)/, /\b(gl-matrix)/, /^@ohif/, /^@cornerstonejs/],
     plugins: [
       new webpack.optimize.LimitChunkCountPlugin({
         maxChunks: 1,

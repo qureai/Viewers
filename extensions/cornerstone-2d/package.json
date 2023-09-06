@@ -30,7 +30,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack --config .webpack/webpack.dev.js --watch --debug --output-pathinfo",
     "dev:cornerstone": "yarn run dev",
-    "build": "scripts/build.sh --external:react --external:react-dom --external:cornerstone-core --external:cornerstone-tools --external:cornerstone-math --external:hammerjs --external:@ohif/core --external:@ohif/ui --external:cornerstone-wado-image-loader --external:dicom-parser --external:dcmjs/build/dcmjs.js --external:ohif-step",
+    "build": "scripts/build.sh --external:react --external:react-dom --external:cornerstone-core --external:cornerstone-tools --external:cornerstone-math --external:hammerjs --external:@ohif/core --external:@ohif/ui --external:@cornerstonejs/dicom-image-loader --external:dicom-parser --external:dcmjs/build/dcmjs.js --external:ohif-step",
     "build:package": "yarn run build",
     "start": "yarn run dev",
     "test:unit": "jest --watchAll",

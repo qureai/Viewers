@@ -17,7 +17,7 @@ function ViewportOrientationMarkers({
   element,
   viewportData,
   imageSliceData,
-  viewportIndex,
+  viewportId,
   servicesManager,
   orientationMarkers = ["top", "left"],
 }) {
@@ -72,7 +72,7 @@ function ViewportOrientationMarkers({
         return false;
       }
 
-      ({ rowCosines, columnCosines } = metaData.get("imagePlaneModule", imageId) || {});
+      ({ rowCosines, columnCosines } = metaData.get('imagePlaneModule', imageId) || {});
     } else {
       if (!element || !getEnabledElement(element)) {
         return "";
@@ -100,7 +100,7 @@ function ViewportOrientationMarkers({
       flipHorizontal
     );
 
-    const ohifViewport = cornerstoneViewportService.getViewportInfoByIndex(viewportIndex);
+    const ohifViewport = cornerstoneViewportService.getViewportInfo(viewportId);
 
     if (!ohifViewport) {
       console.log("ViewportOrientationMarkers::No viewport");
@@ -156,13 +156,7 @@ ViewportOrientationMarkers.defaultProps = {
  * @param {*} rotation in degrees
  * @returns
  */
-function _getOrientationMarkers(
-  rowCosines,
-  columnCosines,
-  rotation,
-  flipVertical,
-  flipHorizontal
-) {
+function _getOrientationMarkers(rowCosines, columnCosines, rotation, flipVertical, flipHorizontal) {
   const rowString = getOrientationStringLPS(rowCosines);
   const columnString = getOrientationStringLPS(columnCosines);
   const oppositeRowString = invertOrientationStringLPS(rowString);

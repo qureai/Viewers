@@ -1,6 +1,6 @@
 ---
 sidebar_position: 10
-sidebar_label: 💥 Migration Guide (NEW)💥
+sidebar_label: Migration Guide (NEW)
 ---
 
 # Migration Guide
@@ -55,6 +55,7 @@ Certain scenarios can make the migration process more complex and potentially in
 OHIF v3 is a major re-architecture of the OHIF v2 to make it more modular and
 easier to maintain. The main differences are:
 
+- platform/viewer (@ohif/viewer) has been renamed to platform/app (@ohif/app) (explanation below)
 - Extensions are available to be used by modes on request, but are still injected as module components.
 - To use the modules provided by the extensions, you need to write a [Mode](./platform/modes/index.md). Modes
 are configuration objects that will be used by the viewer to load the modules. This lets users to be able to use common extensions with different configurations, and enhances the customizability of the viewer.
@@ -78,8 +79,25 @@ New significant additions that might be useful for you that weren't available in
 - [Hanging Protocols](./platform/services/data/HangingProtocolService.md)
 - [URL Params](./configuration/url.md)
 
+## Platform/viewer (@ohif/viewer) -> platform/app (@ohif/app)
+
+
+To ensure proper versioning of OHIF v3, we have made a decision to rename the platform/viewer to platform/app. Previously, the platform/viewer package followed software engineering versioning (currently at v4.12.51). However, going forward, we aim to align the versioning of platform/app with the product version (e.g., v3.4.0, v3.5.0, etc.).
+
+Since the platform/viewer (@ohif/viewer) is already at v4.12.51, we opted to rename it as platform/app to enable versioning in accordance with the product versioning approach. If you were utilizing any exports from @ohif/viewer, please update them to use @ohif/app instead.
+
 
 ## Configuration
+
+:::tip
+There are various configurations available to customize the viewer. Each configuration is represented by a custom-tailored object that should be used with the viewer to work effectively with a specific server. Here are some examples of configuration files found in the platform/app/public/config directory. Some server-specific configurations that you should be aware are: `supportsWildcard`, `bulkDataURI`, `omitQuotationForMultipartRequest`, `staticWado` (Read more about them [here](./configuration/configurationFiles.md)).
+
+- default.js: This is our default configuration designed for our main server, which uses a Static WADO datasource hosted on Amazon S3.
+- local_orthanc.js: Use this configuration when working with our local Orthanc server.
+- local_dcm4chee.js: This configuration is intended for our local dcm4chee server.
+- netlify.js: This configuration is the same as default.js and is used for deployment on Netlify.
+- google.js: Use this configuration to run the viewer against the Google Health API.
+:::
 
 OHIF v3 has a new configuration structure. The main difference is that the `servers` is renamed to `dataSources` and the configuration is now asynchronous. Datasources are more abstract and
 far more capable than servers. Read more about dataSources [here](./platform/extensions/modules/data-source.md).
@@ -90,6 +108,7 @@ far more capable than servers. Read more about dataSources [here](./platform/ext
 - The maxConcurrentMetadataRequests property has been removed in favor of `maxNumRequests`
 - The hotkeys array has been updated with different command names and options, and some keys have been removed.
 - New properties have been added, including `maxNumberOfWebWorkers`, `omitQuotationForMultipartRequest`, `showWarningMessageForCrossOrigin`, `showCPUFallbackMessage`, `showLoadingIndicator`, `strictZSpacingForVolumeViewport`.
+- you should see if `supportsWildcard` is supported in your server, some servers don't support it and you need to make it false.
 
 ## Modes
 
@@ -275,9 +294,9 @@ To migrate from OHIF v2 to OHIF v3:
 
 #### Loading
 
-Previously we used `cornerstone-wado-image-loader` for loading images. However, we have fully switched the a new
-library called `@cornerstonejs/dicom-image-loader` which is a fork of `cornerstone-wado-image-loader` with typescript support and bug fixes.
-We have deprecated `cornerstone-wado-image-loader` and you should also switch to `@cornerstonejs/dicom-image-loader` as well.
+Previously we used `@cornerstonejs/dicom-image-loader` for loading images. However, we have fully switched the a new
+library called `@cornerstonejs/dicom-image-loader` which is a fork of `@cornerstonejs/dicom-image-loader` with typescript support and bug fixes.
+We have deprecated `@cornerstonejs/dicom-image-loader` and you should also switch to `@cornerstonejs/dicom-image-loader` as well.
 The process is very simple, you can follow this [PR](https://github.com/OHIF/Viewers/pull/3339) to see how we have migrated.
 
 There is also a new loader and package `@cornerstonejs/streaming-image-volume-loader`, which provides streaming of the image data

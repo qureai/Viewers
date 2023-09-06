@@ -1,6 +1,7 @@
 import AboutModal from './AboutModal';
 import Button from './Button';
 import ButtonGroup from './ButtonGroup';
+import { ButtonEnums } from './Button';
 import ContextMenu from './ContextMenu';
 import CinePlayer from './CinePlayer';
 import DateRange from './DateRange';
@@ -12,12 +13,14 @@ import Icon from './Icon';
 import IconButton from './IconButton';
 import Input from './Input';
 import InputDateRange from './InputDateRange';
+import InputFilterText from './InputFilterText';
 import InputGroup from './InputGroup';
 import InputLabelWrapper from './InputLabelWrapper';
 import InputMultiSelect from './InputMultiSelect';
 import InputText from './InputText';
 import Label from './Label';
 import LayoutSelector from './LayoutSelector';
+import LegacyButton from './LegacyButton';
 import LegacyCinePlayer from './LegacyCinePlayer';
 import LegacyViewportActionBar from './LegacyViewportActionBar';
 import MeasurementTable from './MeasurementTable';
@@ -80,6 +83,7 @@ export {
   HotkeysPreferences,
   Button,
   ButtonGroup,
+  ButtonEnums,
   CheckBox,
   CinePlayer,
   ContextMenu,
@@ -94,6 +98,7 @@ export {
   IconButton,
   Input,
   InputDateRange,
+  InputFilterText,
   InputGroup,
   InputRange,
   InputNumber,
@@ -103,6 +108,7 @@ export {
   ImageScrollbar,
   Label,
   LayoutSelector,
+  LegacyButton,
   LegacyCinePlayer,
   LegacyViewportActionBar,
   LoadingIndicatorProgress,

@@ -32,7 +32,7 @@ _Not sure if you have `docker` installed already? Try running `docker --version`
 in command prompt or terminal_
 
 > If you are using `Docker Toolbox` you need to change the _PROXY_DOMAIN_
-> parameter in _platform/viewer/package.json_ to http://192.168.99.100:8042 or
+> parameter in _platform/app/package.json_ to http://192.168.99.100:8042 or
 > the ip docker-machine ip throws. This is the value [`WebPack`][webpack-proxy]
 > uses to proxy requests
 
@@ -101,7 +101,7 @@ yarn run dev:orthanc
 
 Let's take a look at what's going on under the hood here. `yarn run dev:orthanc`
 is running the `dev:orthanc` script in our project's `package.json` (inside
-`platform/viewer`). That script is:
+`platform/app`). That script is:
 
 ```js
 cross-env NODE_ENV=development PROXY_TARGET=/dicom-web PROXY_DOMAIN=http://localhost:8042 APP_CONFIG=config/docker_nginx-orthanc.js webpack-dev-server --config .webpack/webpack.pwa.js -w
@@ -120,7 +120,7 @@ requesting resources that live at a different domain.
 
 The `APP_CONFIG` value tells our app which file to load on to `window.config`.
 By default, our app uses the file at
-`<project-root>/platform/viewer/public/config/default.js`. Here is what that
+`<project-root>/platform/app/public/config/default.js`. Here is what that
 configuration looks like:
 
 ```js
@@ -131,10 +131,10 @@ window.config = {
   showStudyList: true,
   dataSources: [
     {
-      friendlyName: 'dcmjs DICOMWeb Server',
       namespace: '@ohif/extension-default.dataSourcesModule.dicomweb',
       sourceName: 'dicomweb',
       configuration: {
+        friendlyName: 'dcmjs DICOMWeb Server',
         name: 'DCM4CHEE',
         wadoUriRoot: 'https://server.dcmjs.org/dcm4chee-arc/aets/DCM4CHEE/wado',
         qidoRoot: 'https://server.dcmjs.org/dcm4chee-arc/aets/DCM4CHEE/rs',
@@ -159,6 +159,13 @@ The following properties can be added to the `configuration` property of each da
 
 ##### `dicomUploadEnabled`
 A boolean indicating if the DICOM upload to the data source is permitted/accepted or not. A value of true provides a link on the OHIF work list page that allows for DICOM files from the local file system to be uploaded to the data source
+
+:::tip
+The [OHIF plugin for Orthanc](https://book.orthanc-server.com/plugins/ohif.html) by default utilizes the DICOM JSON data
+source and it has been discovered that only those studies uploaded to Orthanc AFTER the plugin has been installed are
+available as DICOM JSON. As such, if the OHIF plugin for Orthanc is desired for studies uploaded prior to installing the plugin, 
+then consider switching to using [DICOMweb instead](https://book.orthanc-server.com/plugins/ohif.html#using-dicomweb).
+:::
 
 ![toolbarModule-layout](../../assets/img/uploader.gif)
 
@@ -212,7 +219,7 @@ An overview of steps for running OHIF Viewer using a local DCM4CHEE is shown
 below:
 
 <div style={{padding:"56.25% 0 0 0", position:"relative"}}>
-    <iframe src="https://player.vimeo.com/video/557570043?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen style= {{ position:"absolute",top:0,left:0,width:"100%",height:"100%"}} title="measurement-report"></iframe>
+    <iframe src="https://player.vimeo.com/video/843233881?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen style= {{ position:"absolute",top:0,left:0,width:"100%",height:"100%"}} title="measurement-report"></iframe>
 </div>
 
 [dcm4chee]: https://github.com/dcm4che/dcm4chee-arc-light
@@ -225,8 +232,8 @@ below:
 [osirix]: http://www.osirix-viewer.com/
 [horos]: https://www.horosproject.org/
 [default-config]:
-  https://github.com/OHIF/Viewers/blob/master/platform/viewer/public/config/default.js
+  https://github.com/OHIF/Viewers/blob/master/platform/app/public/config/default.js
 [html-templates]:
-  https://github.com/OHIF/Viewers/tree/master/platform/viewer/public/html-templates
+  https://github.com/OHIF/Viewers/tree/master/platform/app/public/html-templates
 [config-files]:
-  https://github.com/OHIF/Viewers/tree/master/platform/viewer/public/config
+  https://github.com/OHIF/Viewers/tree/master/platform/app/public/config

@@ -2,6 +2,7 @@ const { merge } = require('webpack-merge');
 
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const webpackCommon = require('./../../../.webpack/webpack.base.js');
 const pkg = require('./../package.json');
@@ -11,8 +12,14 @@ const SRC_DIR = path.join(__dirname, '../src');
 const DIST_DIR = path.join(__dirname, '../dist');
 const ENTRYPOINT = path.join(__dirname, '../', pkg.module);
 
+const ENTRY = {
+  app: `${SRC_DIR}/index.js`,
+};
+
+const outputName = `ohif-${pkg.name.split('/').pop()}`;
+
 module.exports = (env, argv) => {
-  const commonConfig = webpackCommon(env, argv, { SRC_DIR, DIST_DIR });
+  const commonConfig = webpackCommon(env, argv, { SRC_DIR, DIST_DIR, ENTRY });
 
   return merge(commonConfig, {
     entry: {
@@ -31,35 +38,28 @@ module.exports = (env, argv) => {
     },
     optimization: {
       minimize: true,
-      sideEffects: true,
+      sideEffects: false,
     },
     output: {
       path: ROOT_DIR,
-      library: 'ohifUi',
-      libraryTarget: 'commonjs2',
+      library: 'ohif-ui',
+      libraryTarget: 'umd',
       filename: pkg.main,
     },
     externals: [
+      /\b(dcmjs)/,
+      /\b(gl-matrix)/,
       {
-        react: {
-          root: 'React',
-          commonjs2: 'react',
-          commonjs: 'react',
-          amd: 'react',
-        },
-        react: {
-          root: 'ReactDOM',
-          commonjs2: 'react-dom',
-          commonjs: 'react-dom',
-          amd: 'react-dom',
-        },
+        react: 'React',
+        'react-dom': 'ReactDOM',
       },
     ],
     plugins: [
       new MiniCssExtractPlugin({
-        filename: `./dist/[name].css`,
-        chunkFilename: `./dist/[id].css`,
+        filename: `./dist/${outputName}.css`,
+        chunkFilename: `./dist/${outputName}.css`,
       }),
+      // new BundleAnalyzerPlugin({}),
     ],
   });
 };

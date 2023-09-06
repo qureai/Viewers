@@ -1,17 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Input, InputLabelWrapper } from '../';
+import Input from '../Input';
+import InputLabelWrapper from '../InputLabelWrapper';
 
-const InputText = ({
-  id,
-  label,
-  isSortable,
-  sortDirection,
-  onLabelClick,
-  value,
-  onChange,
-}) => {
+const InputText = ({ id, label, isSortable, sortDirection, onLabelClick, value, onChange }) => {
   return (
     <InputLabelWrapper
       label={label}
@@ -36,7 +29,7 @@ const InputText = ({
 InputText.defaultProps = {
   value: '',
   isSortable: false,
-  onLabelClick: () => { },
+  onLabelClick: () => {},
   sortDirection: 'none',
 };
 

@@ -1,10 +1,10 @@
 {
   "name": "@ohif/ui",
-  "version": "4.0.0-alpha.7",
+  "version": "3.7.0-beta.64",
   "description": "A set of React components for Medical Imaging Viewers",
   "author": "OHIF Contributors",
   "license": "MIT",
-  "main": "dist/index.js",
+  "main": "dist/ohif-ui.umd.js",
   "module": "src/index.js",
   "publishConfig": {
     "access": "public"

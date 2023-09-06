@@ -9,7 +9,7 @@ body:
       value: |
         👋 Hello, and thank you for contributing to our project! Your support is greatly appreciated.
 
-        🔍 Before proceeding, please make sure to read our [Rules of Conduct](https://github.com/OHIF/Viewers/blob/master/CODE_OF_CONDUCT.md) and familiarize yourself with our [development process](https://v3-docs.ohif.org/development/our-process).
+        🔍 Before proceeding, please make sure to read our [Rules of Conduct](https://github.com/OHIF/Viewers/blob/master/CODE_OF_CONDUCT.md) and familiarize yourself with our [development process](https:/docs.ohif.org/development/our-process).
 
         ❓ If you're here to seek general support or ask a question, we encourage you to visit our [community discussion board](https://community.ohif.org/)
 
@@ -39,8 +39,7 @@ body:
     attributes:
       label: The current behavior
       description:
-        'A clear and concise description of what happens instead of the expected
-        behavior.'
+        'A clear and concise description of what happens instead of the expected behavior.'
     validations:
       required: true
 
@@ -48,8 +47,7 @@ body:
     id: expected_behavior
     attributes:
       label: The expected behavior
-      description:
-        'A clear and concise description of what you expected to happen.'
+      description: 'A clear and concise description of what you expected to happen.'
     validations:
       required: true
 
@@ -81,6 +79,6 @@ body:
   - type: markdown
     attributes:
       value: >
-        > :warning: Reports we cannot reproduce are at risk of being marked
-        stale and > closed. The more information you can provide, the more
-        likely we are to look > into and address your issue.
+        > :warning: Reports we cannot reproduce are at risk of being marked stale and > closed. The
+        more information you can provide, the more likely we are to look > into and address your
+        issue.

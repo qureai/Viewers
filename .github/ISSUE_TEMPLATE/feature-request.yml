@@ -10,7 +10,7 @@ body:
 
         🔍 Before you proceed, please read our [Rules of Conduct](https://github.com/OHIF/Viewers/blob/master/CODE_OF_CONDUCT.md).
 
-        🚀 If your request is specific to your needs, consider contributing it yourself! Read our [contributing guides](https://v3-docs.ohif.org/development/contributing) to get started.
+        🚀 If your request is specific to your needs, consider contributing it yourself! Read our [contributing guides](https://docs.ohif.org/development/contributing) to get started.
 
         🖊️ Please provide as much detail as possible for your feature request. Mock-up screenshots, workflow or logic flow diagrams are very helpful. Discuss how your requested feature would interact with existing features.
 
@@ -20,17 +20,15 @@ body:
     attributes:
       label: 'What feature or change would you like to see made?'
       description:
-        'Please include as much detail as possible including possibly mock up
-        screen shots, workflow or logic flow diagrams etc.'
+        'Please include as much detail as possible including possibly mock up screen shots, workflow
+        or logic flow diagrams etc.'
       placeholder: '...'
     validations:
       required: true
   - type: textarea
     attributes:
       label: 'Why should we prioritize this feature?'
-      description:
-        'Discuss if and how the requested feature interacts with existing
-        features.'
+      description: 'Discuss if and how the requested feature interacts with existing features.'
       placeholder: '...'
     validations:
       required: true
