@@ -31,7 +31,8 @@ module.exports = (env, argv) => {
       warnings: true,
     },
     optimization: {
-      minimize: true,
+      // minimize: true,
+      minimize: false, // for debugging
       sideEffects: false,
     },
     output: {

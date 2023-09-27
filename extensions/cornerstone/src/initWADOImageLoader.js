@@ -16,8 +16,8 @@ function initWebWorkers(appConfig) {
       appConfig.maxNumberOfWebWorkers
     ),
     webWorkerTaskPaths: [
-      "https://unpkg.com/@cornerstonejs/dicom-image-loader@4.1.0/dist/610.bundle.min.worker.js",
-      "https://unpkg.com/@cornerstonejs/dicom-image-loader@4.1.0/dist/888.bundle.min.worker.js",
+      // 'https://unpkg.com/@cornerstonejs/dicom-image-loader@4.1.0/dist/610.bundle.min.worker.js',
+      // 'https://unpkg.com/@cornerstonejs/dicom-image-loader@4.1.0/dist/888.bundle.min.worker.js',
       // 'https://unpkg.com/@cornerstonejs/dicom-image-loader@4.1.0/dist/610.bundle.min.js',
     ],
     startWebWorkersOnDemand: true,
@@ -31,7 +31,7 @@ function initWebWorkers(appConfig) {
   };
 
   if (!initialized) {
-    cornerstoneWADOImageLoader.webWorkerManager.initialize(config);
+    dicomImageLoader.webWorkerManager.initialize(config);
     initialized = true;
   }
 }
@@ -46,7 +46,7 @@ export default function initWADOImageLoader(
 
   registerVolumeLoader('cornerstoneStreamingImageVolume', cornerstoneStreamingImageVolumeLoader);
 
-  cornerstoneWADOImageLoader.configure({
+  dicomImageLoader.configure({
     decodeConfig: {
       // !! IMPORTANT !!
       // We should set this flag to false, since, by default @cornerstonejs/dicom-image-loader
@@ -57,25 +57,22 @@ export default function initWADOImageLoader(
     },
     beforeSend: function (xhr) {
       //TODO should be removed in the future and request emitted by DicomWebDataSource
-      const sourceConfig = extensionManager.getActiveDataSource()?.[0].getConfig() ?? {};
-      const headers = userAuthenticationService.getAuthorizationHeader();
-      const acceptHeader = utils.generateAcceptHeader(
-        sourceConfig.acceptHeader,
-        sourceConfig.requestTransferSyntaxUID,
-        sourceConfig.omitQuotationForMultipartRequest
-      );
-
-      const xhrRequestHeaders = {
-        Accept: acceptHeader,
-      };
-
-      if (headers) {
-        Object.assign(xhrRequestHeaders, headers);
-      }
-
-      return xhrRequestHeaders;
+      // const sourceConfig = extensionManager.getActiveDataSource()?.[0].getConfig() ?? {};
+      // const headers = userAuthenticationService.getAuthorizationHeader();
+      // const acceptHeader = utils.generateAcceptHeader(
+      //   sourceConfig.acceptHeader,
+      //   sourceConfig.requestTransferSyntaxUID,
+      //   sourceConfig.omitQuotationForMultipartRequest
+      // );
+      // const xhrRequestHeaders = {
+      //   Accept: acceptHeader,
+      // };
+      // if (headers) {
+      //   Object.assign(xhrRequestHeaders, headers);
+      // }
+      // return xhrRequestHeaders;
     },
-    errorInterceptor: (error) => {
+    errorInterceptor: error => {
       // errorHandler.getHTTPErrorHandler(error);
     },
   });

@@ -198,7 +198,7 @@ class ViewportInfo {
 
   public setPublicViewportOptions(viewportOptionsEntry: PublicViewportOptions): ViewportOptions {
     let viewportType = viewportOptionsEntry.viewportType;
-    const { toolGroupId = DEFAULT_TOOLGROUP_ID, presentationIds } = viewportOptionsEntry;
+    let { toolGroupId = DEFAULT_TOOLGROUP_ID, presentationIds } = viewportOptionsEntry;
     let orientation;
 
     if (!viewportType) {

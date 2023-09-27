@@ -13,7 +13,7 @@ const combineFrameInstance = (frame, instance) => {
     instance;
 
   if (PerFrameFunctionalGroupsSequence || NumberOfFrames > 1) {
-    const frameNumber = Number.parseInt(frame || 1);
+    const frameNumber = Number.parseInt(frame) || 1;
     const shared = (
       SharedFunctionalGroupsSequence ? Object.values(SharedFunctionalGroupsSequence[0]) : []
     )
