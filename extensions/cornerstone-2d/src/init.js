@@ -650,13 +650,13 @@ function _addConfiguredToolsForElement(
 
     if (toolName == 'Zoom') {
       Object.assign(props, {
-        configuration: { minScale: 0.01 },
+        configuration: { minScale: 0.25, maxScale: 4 },
       });
     }
 
     if (toolName == 'ZoomTouchPinch') {
       Object.assign(props, {
-        configuration: { minScale: 0.01 },
+        configuration: { minScale: 0.25, maxScale: 4 },
       });
     }
 
