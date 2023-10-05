@@ -1,11 +1,11 @@
-import cornerstone from "cornerstone-core";
-import cornerstoneTools from "cornerstone-tools";
-import OHIF from "@ohif/core";
+import cornerstone from 'cornerstone-core';
+import cornerstoneTools from 'cornerstone-tools';
+import OHIF from '@ohif/core';
 
 //import setCornerstoneLayout from './utils/setCornerstoneLayout.js';
-import { getEnabledElement } from "./state";
-import CornerstoneViewportDownloadForm from "./CornerstoneViewportDownloadForm";
-const scroll = cornerstoneTools.import("util/scroll");
+import { getEnabledElement } from './state';
+import CornerstoneViewportDownloadForm from './CornerstoneViewportDownloadForm';
+const scroll = cornerstoneTools.import('util/scroll');
 
 const { studyMetadataManager } = OHIF.utils;
 
@@ -34,7 +34,11 @@ function onElementDisabledRemoveFromSync(event) {
 }
 
 const commandsModule = ({ servicesManager, commandsManager }) => {
-  const { ViewportGridService, CineService, ToolbarService } = servicesManager.services;
+  const {
+    ViewportGridService,
+    CineService,
+    ToolbarService,
+  } = servicesManager.services;
 
   function _getActiveViewportsEnabledElement() {
     const { activeViewportIndex } = ViewportGridService.getState();
@@ -90,6 +94,31 @@ const commandsModule = ({ servicesManager, commandsManager }) => {
     resetViewport: () => {
       const enabledElement = _getActiveViewportsEnabledElement();
 
+      // Clear all the tool states
+      const LengthTool = cornerstoneTools.getToolForElement(
+        enabledElement,
+        'Length'
+      );
+      const EllipticalTool = cornerstoneTools.getToolForElement(
+        enabledElement,
+        'EllipticalRoi'
+      );
+
+      const BidirectionalTool = cornerstoneTools.getToolForElement(
+        enabledElement,
+        'Bidirectional'
+      );
+
+      const ArrowAnnotateTool = cornerstoneTools.getToolForElement(
+        enabledElement,
+        'ArrowAnnotate'
+      );
+
+      cornerstoneTools.clearToolState(enabledElement, LengthTool.name);
+      cornerstoneTools.clearToolState(enabledElement, EllipticalTool.name);
+      cornerstoneTools.clearToolState(enabledElement, BidirectionalTool.name);
+      cornerstoneTools.clearToolState(enabledElement, ArrowAnnotateTool.name);
+
       if (enabledElement) {
         cornerstone.reset(enabledElement);
       }
@@ -99,7 +128,7 @@ const commandsModule = ({ servicesManager, commandsManager }) => {
       const { viewports } = ViewportGridService.getState();
       const { isCineEnabled } = CineService.getState();
       CineService.setIsCineEnabled(!isCineEnabled);
-      ToolbarService.setButton("Cine", { props: { isActive: !isCineEnabled } });
+      ToolbarService.setButton('Cine', { props: { isActive: !isCineEnabled } });
       viewports.forEach((_, index) =>
         CineService.setCine({ id: index, isPlaying: false })
       );
@@ -107,7 +136,7 @@ const commandsModule = ({ servicesManager, commandsManager }) => {
     toggleSynchronizer: ({ toggledState }) => {
       const synchronizers = [imagePositionSynchronizer];
       // Set synchronizer state when the command is run.
-      synchronizers.forEach((s) => {
+      synchronizers.forEach(s => {
         s.enabled = toggledState;
       });
 
@@ -142,8 +171,8 @@ const commandsModule = ({ servicesManager, commandsManager }) => {
       }
 
       // Erase existing state and then set up all currently existing elements
-      cornerstone.getEnabledElements().map((e) => {
-        synchronizers.forEach((s) => {
+      cornerstone.getEnabledElements().map(e => {
+        synchronizers.forEach(s => {
           s.remove(e.element);
           s.add(e.element);
         });
@@ -169,9 +198,9 @@ const commandsModule = ({ servicesManager, commandsManager }) => {
       const enabledElement = _getActiveViewportsEnabledElement();
 
       if (enabledElement) {
-        const cancelActiveManipulatorsForElement =
-          cornerstoneTools.getModule("manipulatorState").setters
-            .cancelActiveManipulatorsForElement;
+        const cancelActiveManipulatorsForElement = cornerstoneTools.getModule(
+          'manipulatorState'
+        ).setters.cancelActiveManipulatorsForElement;
 
         cancelActiveManipulatorsForElement(enabledElement);
 
@@ -182,7 +211,7 @@ const commandsModule = ({ servicesManager, commandsManager }) => {
     //       better mouseButtonMask sets.
     setToolActive: ({ toolName }) => {
       if (!toolName) {
-        console.warn("No toolname provided to setToolActive command");
+        console.warn('No toolname provided to setToolActive command');
       }
 
       // Find total number of tool indexes
@@ -191,24 +220,26 @@ const commandsModule = ({ servicesManager, commandsManager }) => {
         const viewport = viewports[i];
         const hasDisplaySet = viewport?.displaySetInstanceUIDs?.length !== 0;
 
-        console.log({ hasDisplaySet });
         if (!hasDisplaySet) {
           continue;
         }
 
         const viewportInfo = getEnabledElement(i);
-        console.log({ viewportInfo });
         if (!viewportInfo) continue;
         const hasCornerstoneContext =
-          viewportInfo.context === "ACTIVE_VIEWPORT::CORNERSTONE";
+          viewportInfo.context === 'ACTIVE_VIEWPORT::CORNERSTONE';
 
         if (hasCornerstoneContext) {
-          cornerstoneTools.setToolActiveForElement(viewportInfo.element, toolName, {
-            mouseButtonMask: 1,
-          });
+          cornerstoneTools.setToolActiveForElement(
+            viewportInfo.element,
+            toolName,
+            {
+              mouseButtonMask: 1,
+            }
+          );
         } else {
           commandsManager.runCommand(
-            "setToolActive",
+            'setToolActive',
             {
               element: viewportInfo.element,
               toolName,
@@ -229,7 +260,9 @@ const commandsModule = ({ servicesManager, commandsManager }) => {
         return;
       }
 
-      const { toolState } = cornerstoneTools.globalImageIdSpecificToolStateManager;
+      const {
+        toolState,
+      } = cornerstoneTools.globalImageIdSpecificToolStateManager;
       if (
         !toolState ||
         toolState.hasOwnProperty(enabledElement.image.imageId) === false
@@ -241,11 +274,15 @@ const commandsModule = ({ servicesManager, commandsManager }) => {
 
       const measurementsToRemove = [];
 
-      Object.keys(imageIdToolState).forEach((toolType) => {
+      Object.keys(imageIdToolState).forEach(toolType => {
         const { data } = imageIdToolState[toolType];
 
-        data.forEach((measurementData) => {
-          const { _id, lesionNamingNumber, measurementNumber } = measurementData;
+        data.forEach(measurementData => {
+          const {
+            _id,
+            lesionNamingNumber,
+            measurementNumber,
+          } = measurementData;
 
           if (!_id) {
             return;
@@ -260,7 +297,7 @@ const commandsModule = ({ servicesManager, commandsManager }) => {
         });
       });
 
-      measurementsToRemove.forEach((measurementData) => {
+      measurementsToRemove.forEach(measurementData => {
         OHIF.measurements.MeasurementHandlers.onRemoved({
           detail: {
             toolType: measurementData.toolType,
@@ -288,7 +325,7 @@ const commandsModule = ({ servicesManager, commandsManager }) => {
       if (UIModalService) {
         UIModalService.show({
           content: CornerstoneViewportDownloadForm,
-          title: "Download High Quality Image",
+          title: 'Download High Quality Image',
           contentProps: {
             activeViewportIndex,
             onClose: UIModalService.hide,
@@ -300,15 +337,21 @@ const commandsModule = ({ servicesManager, commandsManager }) => {
       const nearbyTool = {};
       let pointNearTool = false;
 
-      availableToolTypes.forEach((toolType) => {
-        const elementToolData = cornerstoneTools.getToolState(element, toolType);
+      availableToolTypes.forEach(toolType => {
+        const elementToolData = cornerstoneTools.getToolState(
+          element,
+          toolType
+        );
 
         if (!elementToolData) {
           return;
         }
 
         elementToolData.data.forEach((toolData, index) => {
-          let elementToolInstance = cornerstoneTools.getToolForElement(element, toolType);
+          let elementToolInstance = cornerstoneTools.getToolForElement(
+            element,
+            toolType
+          );
 
           if (!elementToolInstance) {
             elementToolInstance = cornerstoneTools.getToolForElement(
@@ -318,11 +361,17 @@ const commandsModule = ({ servicesManager, commandsManager }) => {
           }
 
           if (!elementToolInstance) {
-            console.warn("Tool not found.");
+            console.warn('Tool not found.');
             return undefined;
           }
 
-          if (elementToolInstance.pointNearTool(element, toolData, canvasCoordinates)) {
+          if (
+            elementToolInstance.pointNearTool(
+              element,
+              toolData,
+              canvasCoordinates
+            )
+          ) {
             pointNearTool = true;
             nearbyTool.tool = toolData;
             nearbyTool.index = index;
@@ -345,16 +394,18 @@ const commandsModule = ({ servicesManager, commandsManager }) => {
     //   setCornerstoneLayout();
     // },
     setWindowLevel: ({ window, level }) => {
-      const enabledElement = _getActiveViewportsEnabledElement();
+      if (!!window && !!level) {
+        const enabledElement = _getActiveViewportsEnabledElement();
 
-      if (enabledElement) {
-        let viewport = cornerstone.getViewport(enabledElement);
+        if (enabledElement) {
+          let viewport = cornerstone.getViewport(enabledElement);
 
-        viewport.voi = {
-          windowWidth: Number(window),
-          windowCenter: Number(level),
-        };
-        cornerstone.setViewport(enabledElement, viewport);
+          viewport.voi = {
+            windowWidth: Number(window),
+            windowCenter: Number(level),
+          };
+          cornerstone.setViewport(enabledElement, viewport);
+        }
       }
     },
   };
@@ -369,7 +420,7 @@ const commandsModule = ({ servicesManager, commandsManager }) => {
       commandFn: actions.getCornerstoneLibraries,
       storeContexts: [],
       options: {},
-      context: "VIEWER",
+      context: 'VIEWER',
     },
     getNearbyToolData: {
       commandFn: actions.getNearbyToolData,
@@ -470,7 +521,7 @@ const commandsModule = ({ servicesManager, commandsManager }) => {
     setZoomTool: {
       commandFn: actions.setToolActive,
       storeContexts: [],
-      options: { toolName: "Zoom" },
+      options: { toolName: 'Zoom' },
     },
     // setCornerstoneLayout: {
     //   commandFn: actions.setCornerstoneLayout,
@@ -488,7 +539,7 @@ const commandsModule = ({ servicesManager, commandsManager }) => {
   return {
     actions,
     definitions,
-    defaultContext: "ACTIVE_VIEWPORT::CORNERSTONE",
+    defaultContext: 'ACTIVE_VIEWPORT::CORNERSTONE',
   };
 };
 
