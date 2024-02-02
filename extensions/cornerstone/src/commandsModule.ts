@@ -357,14 +357,34 @@ function commandsModule({
           toolGroup.setToolPassive(activeToolName);
         }
       }
-      // Set the new toolName to be active
-      toolGroup.setToolActive(toolName, {
-        bindings: [
-          {
-            mouseButton: Enums.MouseBindings.Primary,
-          },
-        ],
-      });
+
+      function isTouchDevice() {
+        return (
+          'ontouchstart' in window ||
+          navigator.maxTouchPoints > 0 ||
+          navigator.msMaxTouchPoints > 0
+        );
+      }
+
+      if (toolName === 'Zoom' && isTouchDevice()) {
+        // Set the new toolName to be active
+        toolGroup.setToolActive(toolName, {
+          bindings: [
+            {
+              numTouchPoints: 2,
+            },
+          ],
+        });
+      } else {
+        // Set the new toolName to be active
+        toolGroup.setToolActive(toolName, {
+          bindings: [
+            {
+              mouseButton: Enums.MouseBindings.Primary,
+            },
+          ],
+        });
+      }
     },
     showDownloadViewportModal: () => {
       const { activeViewportIndex } = viewportGridService.getState();
