@@ -1,11 +1,11 @@
-import * as cornerstone from "@cornerstonejs/core";
-import { volumeLoader } from "@cornerstonejs/core";
-import { cornerstoneStreamingImageVolumeLoader } from "@cornerstonejs/streaming-image-volume-loader";
+import * as cornerstone from '@cornerstonejs/core';
+import { volumeLoader } from '@cornerstonejs/core';
+import { cornerstoneStreamingImageVolumeLoader } from '@cornerstonejs/streaming-image-volume-loader';
 import cornerstoneWADOImageLoader, {
   webWorkerManager,
-} from "cornerstone-wado-image-loader";
-import dicomParser from "dicom-parser";
-import { errorHandler } from "@ohif/core";
+} from 'cornerstone-wado-image-loader';
+import dicomParser from 'dicom-parser';
+import { errorHandler } from '@ohif/core';
 
 const { registerVolumeLoader } = volumeLoader;
 
@@ -18,9 +18,8 @@ function initWebWorkers(appConfig) {
       appConfig.maxNumberOfWebWorkers
     ),
     webWorkerTaskPaths: [
-      "https://unpkg.com/cornerstone-wado-image-loader@4.1.0/dist/610.bundle.min.worker.js",
-      "https://unpkg.com/cornerstone-wado-image-loader@4.1.0/dist/888.bundle.min.worker.js",
-      // 'https://unpkg.com/cornerstone-wado-image-loader@4.1.0/dist/610.bundle.min.js',
+      './bundle-1.js', // "https://unpkg.com/cornerstone-wado-image-loader@4.1.0/dist/610.bundle.min.worker.js",
+      './bundle-2.js', // "https://unpkg.com/cornerstone-wado-image-loader@4.1.0/dist/888.bundle.min.worker.js",
     ],
     startWebWorkersOnDemand: true,
     taskConfiguration: {
@@ -38,12 +37,15 @@ function initWebWorkers(appConfig) {
   }
 }
 
-export default function initWADOImageLoader(userAuthenticationService, appConfig) {
+export default function initWADOImageLoader(
+  userAuthenticationService,
+  appConfig
+) {
   cornerstoneWADOImageLoader.external.cornerstone = cornerstone;
   cornerstoneWADOImageLoader.external.dicomParser = dicomParser;
 
   registerVolumeLoader(
-    "cornerstoneStreamingImageVolume",
+    'cornerstoneStreamingImageVolume',
     cornerstoneStreamingImageVolumeLoader
   );
 
@@ -56,7 +58,7 @@ export default function initWADOImageLoader(userAuthenticationService, appConfig
       // we should set this flag to false.
       convertFloatPixelDataToInt: false,
     },
-    beforeSend: function (xhr) {
+    beforeSend: function(xhr) {
       // const headers = UserAuthenticationService.getAuthorizationHeader();
       // // Request:
       // // JPEG-LS Lossless (1.2.840.10008.1.2.4.80) if available, otherwise accept
@@ -74,7 +76,7 @@ export default function initWADOImageLoader(userAuthenticationService, appConfig
       // }
       // return xhrRequestHeaders;
     },
-    errorInterceptor: (error) => {
+    errorInterceptor: error => {
       // errorHandler.getHTTPErrorHandler(error);
     },
   });

@@ -1,7 +1,7 @@
-import cornerstone from "cornerstone-core";
-import cornerstoneWADOImageLoader from "cornerstone-wado-image-loader";
-import dicomParser from "dicom-parser";
-import { errorHandler } from "@ohif/core";
+import cornerstone from 'cornerstone-core';
+import cornerstoneWADOImageLoader from 'cornerstone-wado-image-loader';
+import dicomParser from 'dicom-parser';
+import { errorHandler } from '@ohif/core';
 
 let initialized = false;
 
@@ -10,8 +10,8 @@ function initWebWorkers() {
     maxWebWorkers: Math.max(navigator.hardwareConcurrency - 1, 1),
     startWebWorkersOnDemand: true,
     webWorkerTaskPaths: [
-      "https://unpkg.com/cornerstone-wado-image-loader@4.1.0/dist/610.bundle.min.worker.js",
-      "https://unpkg.com/cornerstone-wado-image-loader@4.1.0/dist/888.bundle.min.worker.js",
+      './bundle-1.js', // "https://unpkg.com/cornerstone-wado-image-loader@4.1.0/dist/610.bundle.min.worker.js",
+      './bundle-2.js', // "https://unpkg.com/cornerstone-wado-image-loader@4.1.0/dist/888.bundle.min.worker.js",
     ],
     taskConfiguration: {
       decodeTask: {
@@ -33,7 +33,7 @@ export default function initWADOImageLoader(UserAuthenticationService) {
   cornerstoneWADOImageLoader.external.dicomParser = dicomParser;
 
   cornerstoneWADOImageLoader.configure({
-    beforeSend: function (xhr) {
+    beforeSend: function(xhr) {
       const headers = UserAuthenticationService.getAuthorizationHeader();
 
       // Request:
@@ -43,7 +43,7 @@ export default function initWADOImageLoader(UserAuthenticationService) {
       // http://dicom.nema.org/medical/dicom/current/output/html/part18.html
       const xhrRequestHeaders = {
         // To prevent Preflight requests:
-        accept: "multipart/related; type=application/octet-stream",
+        accept: 'multipart/related; type=application/octet-stream',
         //
         //accept: 'multipart/related; type="image/x-jls"',
         // 'multipart/related; type="image/x-jls", multipart/related; type="image/jls"; transfer-syntax="1.2.840.10008.1.2.4.80", multipart/related; type="image/x-jls", multipart/related; type="application/octet-stream"; transfer-syntax=*',
@@ -55,7 +55,7 @@ export default function initWADOImageLoader(UserAuthenticationService) {
 
       return xhrRequestHeaders;
     },
-    errorInterceptor: (error) => {
+    errorInterceptor: error => {
       errorHandler.getHTTPErrorHandler(error);
     },
   });
