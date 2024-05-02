@@ -1,6 +1,6 @@
 {
   "name": "@ohif/extension-cornerstone",
-  "version": "4.0.0-alpha.25",
+  "version": "0.0.1-latest-cs3d",
   "description": "OHIF extension for Cornerstone",
   "author": "OHIF",
   "license": "MIT",
@@ -53,7 +53,7 @@
   "dependencies": {
     "@babel/runtime": "^7.20.13",
     "@cornerstonejs/adapters": "^1.1.0",
-    "@cornerstonejs/core": "^1.1.0",
+    "@cornerstonejs/core": "1.70.14",
     "@cornerstonejs/streaming-image-volume-loader": "^1.1.0",
     "@cornerstonejs/tools": "^1.1.0",
     "@kitware/vtk.js": "27.3.1",

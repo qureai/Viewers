@@ -1762,7 +1762,7 @@
   resolved "https://registry.yarnpkg.com/@cornerstonejs/codec-openjph/-/codec-openjph-2.4.2.tgz#e96721d56f6ec96f7f95c16321d88cc8467d8d81"
   integrity sha512-lgdvBvvNezleY+4pIe2ceUsJzlZe/0PipdeubQ3vZZOz3xxtHHMR1XFCl4fgd8gosR8COHuD7h6q+MwgrwBsng==
 
-"@cornerstonejs/core@^1.1.0", "@cornerstonejs/core@^1.2.8":
+"@cornerstonejs/core@1.70.14", "@cornerstonejs/core@^1.1.0", "@cornerstonejs/core@^1.2.8":
   version "1.2.8"
   resolved "https://registry.yarnpkg.com/@cornerstonejs/core/-/core-1.2.8.tgz#e84ecf74cba66085f342a03965f3d73111bb4948"
   integrity sha512-7RPIxXiMt9Ud5PWZ3+fVYJRhCzObbb4emaQvQ3dPo30xLyU7EcNDEyLjIezJfJHAMOHKQo9SnsoUQz+8YmdXSQ==
