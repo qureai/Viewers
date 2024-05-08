@@ -27,8 +27,8 @@ import initContextMenu from './initContextMenu';
 import initDoubleClick from './initDoubleClick';
 
 // TODO: Cypress tests are currently grabbing this from the window?
-window.cornerstone = cornerstone;
-window.cornerstoneTools = cornerstoneTools;
+// window.cornerstone = cornerstone;
+// window.cornerstoneTools = cornerstoneTools;
 /**
  *
  */
