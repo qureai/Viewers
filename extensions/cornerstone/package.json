@@ -1,6 +1,6 @@
 {
   "name": "@ohif/extension-cornerstone",
-  "version": "4.0.0-alpha.25",
+  "version": "0.0.12-cs3d-flags",
   "description": "OHIF extension for Cornerstone",
   "author": "OHIF",
   "license": "MIT",

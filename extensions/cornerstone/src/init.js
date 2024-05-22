@@ -29,6 +29,11 @@ import initDoubleClick from './initDoubleClick';
 // TODO: Cypress tests are currently grabbing this from the window?
 window.cornerstone = cornerstone;
 window.cornerstoneTools = cornerstoneTools;
+
+const isTouchDevice =
+  typeof window !== `undefined` &&
+  !!('ontouchstart' in window || navigator.maxTouchPoints);
+
 /**
  *
  */
@@ -39,14 +44,26 @@ export default async function init({
   configuration,
   appConfig,
 }) {
-  await cs3DInit();
+  await cs3DInit({
+    rendering: {
+      // preferSizeOverAccuracy: isTouchDevice,
+      // useNorm16Texture: isTouchDevice,
+      useCPURendering: isTouchDevice,
+    },
+  });
 
   // For debugging e2e tests that are failing on CI
-  cornerstone.setUseCPURendering(Boolean(appConfig.useCPURendering));
+  cornerstone.setUseCPURendering(
+    isTouchDevice
+    // Boolean(appConfig.useCPURendering)
+  );
   cornerstone.setConfiguration({
     ...cornerstone.getConfiguration(),
     rendering: {
       ...cornerstone.getConfiguration().rendering,
+      useCPURendering: isTouchDevice,
+      // preferSizeOverAccuracy: isTouchDevice,
+      // useNorm16Texture: isTouchDevice,
       strictZSpacingForVolumeViewport:
         appConfig.strictZSpacingForVolumeViewport,
     },

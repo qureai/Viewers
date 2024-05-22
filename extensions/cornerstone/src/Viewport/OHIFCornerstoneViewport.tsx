@@ -222,6 +222,8 @@ const OHIFCornerstoneViewport = React.memo(props => {
 
   // useCallback for onResize
   const onResize = useCallback(() => {
+    console.log('called');
+
     if (elementRef.current) {
       cornerstoneViewportService.resize();
       setImageScrollBarHeight();
@@ -487,8 +489,8 @@ const OHIFCornerstoneViewport = React.memo(props => {
           handleWidth
           handleHeight
           skipOnMount={true} // Todo: make these configurable
-          refreshMode={'debounce'}
-          refreshRate={200} // transition amount in side panel
+          refreshMode="debounce"
+          refreshRate={50} // transition amount in side panel
           onResize={onResize}
           targetRef={elementRef.current}
         />
