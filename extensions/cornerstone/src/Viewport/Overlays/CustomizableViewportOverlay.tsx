@@ -39,6 +39,10 @@ interface OverlayItemProps {
   };
   instanceNumber?: number;
   scale?: number;
+  lossyImageCompressionInfo: {
+    lossyImageCompression?: null;
+    lossyImageCompressionRatio?: null;
+  };
 }
 
 /**
@@ -119,6 +123,29 @@ function InstanceNumberOverlayItem({
 }
 
 /**
+ * Compression Info
+ */
+function CompressionInfoOverlayItem({
+  lossyImageCompressionInfo,
+}: OverlayItemProps) {
+  const {
+    lossyImageCompression,
+    lossyImageCompressionRatio,
+  } = lossyImageCompressionInfo;
+
+  // if (!lossyImageCompression || !lossyImageCompressionRatio) {
+  //   return null;
+  // }
+
+  return (
+    <div className="overlay-item">
+      Lossy Image Compression: [{lossyImageCompression}:
+      {lossyImageCompressionRatio}]
+    </div>
+  );
+}
+
+/**
  * Customizable Viewport Overlay
  */
 function CustomizableViewportOverlay({
@@ -136,6 +163,10 @@ function CustomizableViewportOverlay({
   const [voi, setVOI] = useState({ windowCenter: null, windowWidth: null });
   const [scale, setScale] = useState(1);
   const [activeTools, setActiveTools] = useState([]);
+  const [lossyImageCompressionInfo, setLossyImageCompressionInfo] = useState({
+    lossyImageCompression: null,
+    lossyImageCompressionRatio: null,
+  });
   const { imageIndex } = imageSliceData;
 
   const topLeftCustomization = customizationService.getModeCustomization(
@@ -250,6 +281,27 @@ function CustomizableViewportOverlay({
   }, [viewportIndex, viewportData, cornerstoneViewportService, element]);
 
   /**
+   * Updating the compression info when viepwort renders an image
+   */
+  useEffect(() => {
+    const imageId = viewportData?.data.imageIds[imageIndex] ?? null;
+    console.log({ imageId, viewportData });
+
+    if (!imageId) {
+      return;
+    }
+
+    const { lossyImageCompression, lossyImageCompressionRatio } = metaData.get(
+      "generalImageModule",
+      imageId
+    );
+    setLossyImageCompressionInfo({
+      lossyImageCompression,
+      lossyImageCompressionRatio,
+    });
+  }, [viewportData, imageIndex]);
+
+  /**
    * Updating the active tools when the toolbar changes
    */
   // Todo: this should act on the toolGroups instead of the toolbar state
@@ -286,6 +338,7 @@ function CustomizableViewportOverlay({
         voi,
         scale,
         instanceNumber,
+        lossyImageCompressionInfo,
       };
 
       if (item.customizationType === "ohif.overlayItem.windowLevel") {
@@ -294,6 +347,10 @@ function CustomizableViewportOverlay({
         return <ZoomOverlayItem {...overlayItemProps} />;
       } else if (item.customizationType === "ohif.overlayItem.instanceNumber") {
         return <InstanceNumberOverlayItem {...overlayItemProps} />;
+      } else if (
+        item.customizationType === "ohif.overlayItem.compressionInfo"
+      ) {
+        return <CompressionInfoOverlayItem {...overlayItemProps} />;
       } else {
         const renderItem = customizationService.transform(item);
 
@@ -321,6 +378,10 @@ function CustomizableViewportOverlay({
       {
         id: "WindowLevel",
         customizationType: "ohif.overlayItem.windowLevel",
+      },
+      {
+        id: 'CompressionInfo',
+        customizationType: 'ohif.overlayItem.compressionInfo',
       },
     ];
     return (
