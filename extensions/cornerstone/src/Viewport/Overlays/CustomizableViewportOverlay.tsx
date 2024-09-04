@@ -13,6 +13,7 @@ import { InstanceMetadata } from "platform/core/src/types";
 import { ServicesManager } from "@ohif/core";
 import { ImageSliceData } from "@cornerstonejs/core/dist/esm/types";
 
+import { DicomMetadataStore } from '@ohif/core'
 // import './CustomizableViewportOverlay.css';
 
 const EPSILON = 1e-4;
@@ -137,12 +138,10 @@ function CompressionInfoOverlayItem({
   //   return null;
   // }
 
-  return (
-    <div className="overlay-item">
-      Lossy Image Compression: [{lossyImageCompression}:
-      {lossyImageCompressionRatio}]
-    </div>
-  );
+  if (!lossyImageCompression) {
+    return null;
+  }
+  return <div className="overlay-item">Lossy Compression</div>;
 }
 
 /**
@@ -159,6 +158,7 @@ function CustomizableViewportOverlay({
     toolbarService,
     cornerstoneViewportService,
     customizationService,
+    displaySetService,
   } = servicesManager.services;
   const [voi, setVOI] = useState({ windowCenter: null, windowWidth: null });
   const [scale, setScale] = useState(1);
@@ -285,19 +285,36 @@ function CustomizableViewportOverlay({
    */
   useEffect(() => {
     const imageId = viewportData?.data.imageIds[imageIndex] ?? null;
-    console.log({ imageId, viewportData });
 
     if (!imageId) {
       return;
     }
 
-    const { lossyImageCompression, lossyImageCompressionRatio } = metaData.get(
-      "generalImageModule",
-      imageId
+    const displaySetInstanceUID = viewportData?.data?.displaySetInstanceUID ?? null;
+    const displaySet = displaySetService.getDisplaySetByUID(
+      displaySetInstanceUID
     );
+    const imageInstance = DicomMetadataStore.getInstance(
+      displaySet?.StudyInstanceUID,
+      displaySet?.SeriesInstanceUID,
+      displaySet?.instance.SOPInstanceUID
+    );
+
+
+    const compressedUrl = imageInstance?.compressed_url
+    const isCompressedURLPresent = compressedUrl? compressedUrl !== null: false
+    // kept this for later
+    // const imagePixelModule = metaData.get('imagePixelModule', imageId);
+    // const instanceMetada = metaData.get('instance', imageId);
+    // const sopCommonMetadata = metaData.get('sopCommonModule', imageId);
+    // const generalImageMetadata = metaData.get('generalImageModule', imageId);
+    // console.log({ imagePixelModule, instanceMetada, sopCommonMetadata, generalImageMetadata});
+    // const lossyImageCompressionRatio = metaData.get('x00282112', imageId);
+    // const lossyImageCompression = metaData.get('x00282110', imageId);
+
     setLossyImageCompressionInfo({
-      lossyImageCompression,
-      lossyImageCompressionRatio,
+      lossyImageCompression: isCompressedURLPresent,
+      lossyImageCompressionRatio: isCompressedURLPresent,
     });
   }, [viewportData, imageIndex]);
 

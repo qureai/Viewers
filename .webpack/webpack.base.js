@@ -41,7 +41,7 @@ module.exports = (env, argv, { SRC_DIR, DIST_DIR }) => {
     mode: isProdBuild ? 'production' : 'development',
     devtool: isProdBuild ? 'source-map' : 'cheap-module-source-map',
     entry: {
-      app: `${SRC_DIR}/index.js`,
+      app: `${SRC_DIR}/index.ts`,
     },
     optimization: {
       // splitChunks: {
