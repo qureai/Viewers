@@ -1,16 +1,23 @@
 {
-  "name": "@ohif/extension-cornerstone-2d",
+  "name": "@qureai/extension-cornerstone-2d",
   "version": "3.0.3",
   "description": "OHIF extension for Cornerstone",
   "author": "OHIF",
   "license": "MIT",
-  "repository": "OHIF/Viewers",
   "main": "dist/index.cjs",
   "module": "dist/extensioncornerstone.js",
   "exports": {
     "import": "./dist/extensioncornerstone.esm.js",
     "require": "./dist/index.cjs",
     "types": "./dist/index.d.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qureai/Viewers",
+    "directory": "extensions/cornerstone-2d"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   },
   "engines": {
     "node": ">=14",
@@ -24,9 +31,6 @@
   "keywords": [
     "ohif-extension"
   ],
-  "publishConfig": {
-    "access": "public"
-  },
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack --config .webpack/webpack.dev.js --watch --debug --output-pathinfo",
     "dev:cornerstone": "yarn run dev",

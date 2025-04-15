@@ -1,13 +1,17 @@
 {
-  "name": "@ohif/extension-cornerstone",
+  "name": "@qureai/extension-cornerstone",
   "version": "4.0.1",
   "description": "OHIF extension for Cornerstone",
   "author": "OHIF",
   "license": "MIT",
-  "repository": "OHIF/Viewers",
   "main": "dist/index.js",
   "module": "src/index.tsx",
   "types": "src/types/index.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qureai/Viewers",
+    "directory": "extensions/cornerstone"
+  },
   "engines": {
     "node": ">=10",
     "npm": ">=6",
@@ -18,7 +22,7 @@
     "README.md"
   ],
   "publishConfig": {
-    "access": "public"
+    "registry": "https://npm.pkg.github.com/"
   },
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack --config .webpack/webpack.dev.js --watch --debug --output-pathinfo",

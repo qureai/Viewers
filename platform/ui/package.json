@@ -1,5 +1,5 @@
 {
-  "name": "@ohif/ui",
+  "name": "@qureai/ui",
   "version": "4.0.0-alpha.7",
   "description": "A set of React components for Medical Imaging Viewers",
   "author": "OHIF Contributors",
@@ -7,7 +7,7 @@
   "main": "dist/index.js",
   "module": "src/index.js",
   "publishConfig": {
-    "access": "public"
+    "registry": "https://npm.pkg.github.com/"
   },
   "sideEffects": false,
   "engines": {
@@ -19,6 +19,11 @@
     "dist",
     "README.md"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qureai/Viewers",
+    "directory": "platform/ui"
+  },
   "scripts": {
     "start": "yarn run build --watch",
     "build": "cross-env NODE_ENV=production webpack --config .webpack/webpack.prod.js",
